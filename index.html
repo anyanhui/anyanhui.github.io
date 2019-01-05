@@ -80,12 +80,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="FE Blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="FE Blog">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="FE Blog">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <title>Hexo</title>
+  <title>FE Blog</title>
   
 
 
@@ -152,7 +152,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">FE Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -229,16 +229,161 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/前端架构设计思考/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="yanzi">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/前端架构设计思考/" itemprop="url">前端架构设计思考</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T12:52:59+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/web前端/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Web前端技术现在高速发展，市场上出现了很多前端框架，又以React、AngularJS和Vue为领头羊，这三个的MVVM模式，确实为前后端分离及前端架构上做了很好的底层模版支持，但本文不是讨论这三大框架的优缺点，而是从传统web开发模式，浅谈自己对前后端分离及前端架构设计的一些思考。</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="传统Web开发模式的痛点"><a href="#传统Web开发模式的痛点" class="headerlink" title="传统Web开发模式的痛点"></a>传统Web开发模式的痛点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、由于控制层在服务端，在模版渲染和路由控制上，全部依赖服务端，导致前后端代码高度耦合，在模版渲染上，异构语言给前后端开发人员带来了极大的困扰，前端同学需要了解服务端的模版渲染语法，才能对页面的逻辑及对DOM的操作维护信手拈来，而服务端同学也需要对页面的布局、模块有了解，才能更好的去渲染页面模版，影响双方的开发效率</span><br><span class="line"></span><br><span class="line">2、由于路由、文件结构等也都是由服务端控制，这样前端同学在项目的初期只能纯粹的开发静态页面和交互，即使可以通过一些方法把页面直接的关系链接起来，但当嵌入服务端时，都要进行一次全部的替换，一来浪费时间，效率低，二来不能针对前端单独部署，提供给产品和UI设计师进行UI和交互的前期审核</span><br></pre></td></tr></table></figure>
+<h3 id="怎么做到前后端分离"><a href="#怎么做到前后端分离" class="headerlink" title="怎么做到前后端分离"></a>怎么做到前后端分离</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、JS模版技术的出现，可以让控制层放在前端。通过Ajax获取数据，返回给JS模版，进行数据渲染。这样做的好处不仅仅是控制层和视图层的解耦，同时还会提升页面的相应效率，第一：服务端不需要直接把渲染好的页面发送到前端，只要传输数据，减少了数据量的传输，第二：只需传递数据，这样服务端和前端可以采用统一的数据格式、规范，对项目的管理、维护都会带来好处。</span><br><span class="line"></span><br><span class="line">2、通过window.hashChange事件监听url的hash值的变化及ajax请求来模拟页面的同步提交，控制不同的视图展示，类似路由功能</span><br></pre></td></tr></table></figure>
+<h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">为了让一个页面对应的数据模型、视图页面和js代码跟其他页面有界限，因此需要模块化。将一个复杂的程序依据一定的规范封装成几个文件，并进行组合在一起。一个模块就是实现特定功能的文件，提供相应的接口供调用。</span><br><span class="line"></span><br><span class="line">减少命名空间污染、更好的分离，按需加载、更高的复用性、更高的可维护性</span><br><span class="line"></span><br><span class="line">为了规范模块开发，出现了AMD和CommonJS规范。</span><br><span class="line"></span><br><span class="line">####AMD</span><br><span class="line"></span><br><span class="line">即Asynchronous Module Definition,中文“异步模块定义”的意思。它是一个在浏览器端模块化开发的规范，模块将被异步加载，不影响后面语句的运行。</span><br><span class="line"></span><br><span class="line">define(id,[依赖], function()&#123;&#125;)</span><br><span class="line"></span><br><span class="line">####CommonJS</span><br><span class="line"></span><br><span class="line">服务端模块的规范，eg：NodeJS。输出模块变量最好的方法是使用module.exports对象,加载模块使用require方法</span><br></pre></td></tr></table></figure>
+<h3 id="前后分离后，前端要做的"><a href="#前后分离后，前端要做的" class="headerlink" title="前后分离后，前端要做的"></a>前后分离后，前端要做的</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目化、工程化，需要系统架构、开发规范、自动化合并压缩、自动化发布、前端监控和分析、前端性能优化等</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/hello-world/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yanzi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
     </span>
 
     
@@ -379,7 +524,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">yanzi</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -390,14 +535,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -435,7 +598,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">yanzi</span>
 
   
 </div>
