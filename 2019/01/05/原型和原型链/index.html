@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="架构,模块化,组件化,">
+  <meta name="keywords" content="js,原型,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Web前端技术现在高速发展，市场上出现了很多前端框架，又以React、AngularJS和Vue为领头羊，这三个的MVVM模式，确实为前后端分离及前端架构上做了很好的底层模版支持，但本文不是讨论这三大框架的优缺点，而是从传统web开发模式，浅谈自己对前后端分离及前端架构设计的一些思考。 Quick Start传统Web开发模式的痛点1231、由于控制层在服务端，在模版渲染和路由控制上，全部依赖服务">
-<meta name="keywords" content="架构,模块化,组件化">
+<meta name="description" content="javascript中万物都为对象 Quick Start什么是原型原型是对象，函数都有一个prototype属性（除了Function及Fnction.bind()返回的函数），这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。 因此，prototype属性指向的对象就是原型对象 原型对象有一个constructor属性，指向prototype属性">
+<meta name="keywords" content="js,原型">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端架构设计思考">
-<meta property="og:url" content="http://yoursite.com/2019/01/05/前端架构设计思考/index.html">
+<meta property="og:title" content="原型和原型链">
+<meta property="og:url" content="http://yoursite.com/2019/01/05/原型和原型链/index.html">
 <meta property="og:site_name" content="FE Blog">
-<meta property="og:description" content="Web前端技术现在高速发展，市场上出现了很多前端框架，又以React、AngularJS和Vue为领头羊，这三个的MVVM模式，确实为前后端分离及前端架构上做了很好的底层模版支持，但本文不是讨论这三大框架的优缺点，而是从传统web开发模式，浅谈自己对前后端分离及前端架构设计的一些思考。 Quick Start传统Web开发模式的痛点1231、由于控制层在服务端，在模版渲染和路由控制上，全部依赖服务">
+<meta property="og:description" content="javascript中万物都为对象 Quick Start什么是原型原型是对象，函数都有一个prototype属性（除了Function及Fnction.bind()返回的函数），这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。 因此，prototype属性指向的对象就是原型对象 原型对象有一个constructor属性，指向prototype属性">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-05T05:53:41.000Z">
+<meta property="og:updated_time" content="2019-01-05T07:55:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端架构设计思考">
-<meta name="twitter:description" content="Web前端技术现在高速发展，市场上出现了很多前端框架，又以React、AngularJS和Vue为领头羊，这三个的MVVM模式，确实为前后端分离及前端架构上做了很好的底层模版支持，但本文不是讨论这三大框架的优缺点，而是从传统web开发模式，浅谈自己对前后端分离及前端架构设计的一些思考。 Quick Start传统Web开发模式的痛点1231、由于控制层在服务端，在模版渲染和路由控制上，全部依赖服务">
+<meta name="twitter:title" content="原型和原型链">
+<meta name="twitter:description" content="javascript中万物都为对象 Quick Start什么是原型原型是对象，函数都有一个prototype属性（除了Function及Fnction.bind()返回的函数），这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。 因此，prototype属性指向的对象就是原型对象 原型对象有一个constructor属性，指向prototype属性">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/05/前端架构设计思考/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/05/原型和原型链/">
 
 
 
 
 
-  <title>前端架构设计思考 | FE Blog</title>
+  <title>原型和原型链 | FE Blog</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/前端架构设计思考/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/原型和原型链/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yanzi">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">前端架构设计思考</h1>
+          <h1 class="post-title" itemprop="name headline">原型和原型链</h1>
         
 
         <div class="post-meta">
@@ -262,7 +262,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T12:52:59+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T15:28:28+08:00">
                 2019-01-05
               </time>
             
@@ -285,8 +285,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/web前端/" itemprop="url" rel="index">
-                    <span itemprop="name">web前端</span>
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
                   </a>
                 </span>
 
@@ -322,11 +322,16 @@
       
 
       
-        <p>Web前端技术现在高速发展，市场上出现了很多前端框架，又以React、AngularJS和Vue为领头羊，这三个的MVVM模式，确实为前后端分离及前端架构上做了很好的底层模版支持，但本文不是讨论这三大框架的优缺点，而是从传统web开发模式，浅谈自己对前后端分离及前端架构设计的一些思考。</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="传统Web开发模式的痛点"><a href="#传统Web开发模式的痛点" class="headerlink" title="传统Web开发模式的痛点"></a>传统Web开发模式的痛点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、由于控制层在服务端，在模版渲染和路由控制上，全部依赖服务端，导致前后端代码高度耦合，在模版渲染上，异构语言给前后端开发人员带来了极大的困扰，前端同学需要了解服务端的模版渲染语法，才能对页面的逻辑及对DOM的操作维护信手拈来，而服务端同学也需要对页面的布局、模块有了解，才能更好的去渲染页面模版，影响双方的开发效率</span><br><span class="line"></span><br><span class="line">2、由于路由、文件结构等也都是由服务端控制，这样前端同学在项目的初期只能纯粹的开发静态页面和交互，即使可以通过一些方法把页面直接的关系链接起来，但当嵌入服务端时，都要进行一次全部的替换，一来浪费时间，效率低，二来不能针对前端单独部署，提供给产品和UI设计师进行UI和交互的前期审核</span><br></pre></td></tr></table></figure>
-<h3 id="怎么做到前后端分离"><a href="#怎么做到前后端分离" class="headerlink" title="怎么做到前后端分离"></a>怎么做到前后端分离</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、JS模版技术的出现，可以让控制层放在前端。通过Ajax获取数据，返回给JS模版，进行数据渲染。这样做的好处不仅仅是控制层和视图层的解耦，同时还会提升页面的相应效率，第一：服务端不需要直接把渲染好的页面发送到前端，只要传输数据，减少了数据量的传输，第二：只需传递数据，这样服务端和前端可以采用统一的数据格式、规范，对项目的管理、维护都会带来好处。</span><br><span class="line"></span><br><span class="line">2、通过window.hashChange事件监听url的hash值的变化及ajax请求来模拟页面的同步提交，控制不同的视图展示，类似路由功能</span><br></pre></td></tr></table></figure>
-<h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">为了让一个页面对应的数据模型、视图页面和js代码跟其他页面有界限，因此需要模块化。将一个复杂的程序依据一定的规范封装成几个文件，并进行组合在一起。一个模块就是实现特定功能的文件，提供相应的接口供调用。</span><br><span class="line"></span><br><span class="line">减少命名空间污染、更好的分离，按需加载、更高的复用性、更高的可维护性</span><br><span class="line"></span><br><span class="line">为了规范模块开发，出现了AMD和CommonJS规范。</span><br><span class="line"></span><br><span class="line">####AMD</span><br><span class="line"></span><br><span class="line">即Asynchronous Module Definition,中文“异步模块定义”的意思。它是一个在浏览器端模块化开发的规范，模块将被异步加载，不影响后面语句的运行。</span><br><span class="line"></span><br><span class="line">define(id,[依赖], function()&#123;&#125;)</span><br><span class="line"></span><br><span class="line">####CommonJS</span><br><span class="line"></span><br><span class="line">服务端模块的规范，eg：NodeJS。输出模块变量最好的方法是使用module.exports对象,加载模块使用require方法</span><br></pre></td></tr></table></figure>
-<h3 id="前后分离后，前端要做的"><a href="#前后分离后，前端要做的" class="headerlink" title="前后分离后，前端要做的"></a>前后分离后，前端要做的</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目化、工程化，需要系统架构、开发规范、自动化合并压缩、自动化发布、前端监控和分析、前端性能优化等</span><br></pre></td></tr></table></figure>
+        <p>javascript中万物都为对象</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="什么是原型"><a href="#什么是原型" class="headerlink" title="什么是原型"></a>什么是原型</h3><p>原型是对象，函数都有一个prototype属性（除了Function及Fnction.bind()返回的函数），这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。</p>
+<p>因此，prototype属性指向的对象就是原型对象</p>
+<p>原型对象有一个constructor属性，指向prototype属性所在的构造函数</p>
+<p>所有对象都有一个<strong>proto</strong>属性，指向创建它的构造函数的原型对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">原型对象：Person.prototype</span><br><span class="line">原型对象的constructor: Person.prototype.constructor == Person</span><br><span class="line">实例的constructor指向构造函数</span><br><span class="line">var person = new Person();</span><br><span class="line">person.constructor == Person</span><br><span class="line">person.__proto__ == Person.prototype</span><br></pre></td></tr></table></figure>
+<p>因此原型对象也是构造函数的一个实例</p>
+<p>但是Object.prototype == null // true</p>
+<h3 id="什么是原型链"><a href="#什么是原型链" class="headerlink" title="什么是原型链"></a>什么是原型链</h3><p>原型对象主要用途用作继承、形成原型链。访问一个对象的属性时，先在基本属性中查找，如果没有，再沿着<strong>proto</strong>这条链向上找，这就是原型链。</p>
+
       
     </div>
     
@@ -343,11 +348,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/架构/" rel="tag"># 架构</a>
+            <a href="/tags/js/" rel="tag"># js</a>
           
-            <a href="/tags/模块化/" rel="tag"># 模块化</a>
-          
-            <a href="/tags/组件化/" rel="tag"># 组件化</a>
+            <a href="/tags/原型/" rel="tag"># 原型</a>
           
         </div>
       
@@ -360,8 +363,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/05/如何发布文章/" rel="next" title="如何发布文章">
-                <i class="fa fa-chevron-left"></i> 如何发布文章
+              <a href="/2019/01/05/图片懒加载原理/" rel="next" title="图片懒加载原理">
+                <i class="fa fa-chevron-left"></i> 图片懒加载原理
               </a>
             
           </div>
@@ -370,8 +373,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/05/函数节流和防抖/" rel="prev" title="函数节流和防抖">
-                函数节流和防抖 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/05/闭包/" rel="prev" title="闭包">
+                闭包 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -504,7 +507,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统Web开发模式的痛点"><span class="nav-number">1.1.</span> <span class="nav-text">传统Web开发模式的痛点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么做到前后端分离"><span class="nav-number">1.2.</span> <span class="nav-text">怎么做到前后端分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块化"><span class="nav-number">1.3.</span> <span class="nav-text">模块化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前后分离后，前端要做的"><span class="nav-number">1.4.</span> <span class="nav-text">前后分离后，前端要做的</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是原型"><span class="nav-number">1.1.</span> <span class="nav-text">什么是原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是原型链"><span class="nav-number">1.2.</span> <span class="nav-text">什么是原型链</span></a></li></ol></li></ol></div>
             
 
           </div>
