@@ -229,6 +229,474 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/ES6-Module/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/08/ES6-Module/" itemprop="url">ES6 Module</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-08T15:38:11+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在ES6之前，社区制定了一些模块加载方案，最主要的有CommonJS和AMD两种。前者用于服务器，后者用于浏览器。ES6在语言标准的层面上，实现了模块功能，完全可以取代CommonJS和AMD规范，成为浏览器和服务器通用的模块解决方案。</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS模块就是对象，输入时必须查找对象属性。</p>
+<p>ES6 模块不是对象，而是通过export命令显式指定输出的代码，再通过import命令输入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// ES6模块</span><br><span class="line">import &#123; stat, exists, readFile &#125; from &apos;fs&apos;;</span><br></pre></td></tr></table></figure>
+<p>上面代码的实质是从fs模块加载3个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 ES6 可以在编译时就完成模块加载，效率要比 CommonJS 模块的加载方式高。</p>
+<p>模块功能主要由两个命令构成：export和import。</p>
+<h3 id="export"><a href="#export" class="headerlink" title="export"></a>export</h3><p>export命令用于规定模块的对外接口。</p>
+<p>一个模块就是一个独立的文件。该文件内部的所有变量、方法，外部无法获取。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//profile.js</span><br><span class="line">export let a = 12;</span><br><span class="line">export function counter() &#123;&#125;</span><br><span class="line"></span><br><span class="line">let b = 12;</span><br><span class="line">function counter2() &#123;&#125;</span><br><span class="line"></span><br><span class="line">export &#123;b, counter2&#125;   //更多的采用这种模式</span><br></pre></td></tr></table></figure>
+<p>另外，export语句输出的接口，与其对应的值是动态绑定关系，即通过该接口，可以取到模块内部实时的值</p>
+<p>最后，export命令可以出现在模块的任何位置，只要处于模块顶层就可以。如果处于块级作用域内，就会报错，下一节的import命令也是如此。这是因为处于条件代码块之中，就没法做静态优化了，违背了 ES6 模块的设计初衷。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  export default &apos;bar&apos; // SyntaxError</span><br><span class="line">&#125;</span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+<h3 id="import"><a href="#import" class="headerlink" title="import"></a>import</h3><p>import命令用于输入其他模块提供的功能；import命令输入的变量都是只读的，但如果是对象，可以对对象的属性进行修改；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//main.js</span><br><span class="line">import &#123;a, counter2&#125; from &apos;./profile.js&apos;</span><br></pre></td></tr></table></figure>
+<p>import后面的from指定模块文件的位置，可以是相对路径，也可以是绝对路径，.js后缀可以省略</p>
+<p>注意，import命令具有提升效果，会提升到整个模块的头部，首先执行</p>
+<p>import语句会执行所加载的模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;loadsh&apos;</span><br></pre></td></tr></table></figure>
+<p>多次重复执行同一句import语句，那么只会执行一次，而不会执行多次</p>
+<h3 id="模块的整体加载"><a href="#模块的整体加载" class="headerlink" title="模块的整体加载"></a>模块的整体加载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import * as circle from &apos;./profile.js&apos;</span><br><span class="line"></span><br><span class="line">console.log(circle.a); //值是不可改变的</span><br></pre></td></tr></table></figure>
+<h3 id="export-default"><a href="#export-default" class="headerlink" title="export default"></a>export default</h3><p>export default命令用于指定模块的默认输出。显然，一个模块只能有一个默认输出，因此export default命令只能使用一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//profile.js 第一组</span><br><span class="line">export default function foo() &#123;&#125;</span><br><span class="line"></span><br><span class="line">import foo from &apos;./profile&apos;</span><br><span class="line"></span><br><span class="line">//profile.js 第二组</span><br><span class="line">export function foo() &#123;&#125;</span><br><span class="line"></span><br><span class="line">import &#123;foo&#125; from &apos;./profile&apos;</span><br></pre></td></tr></table></figure>
+<p>注意：第一组是使用export default时，对应的import语句不需要使用大括号；第二组是不使用export default时，对应的import语句需要使用大括号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import _ from &apos;loadsh&apos;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/async-await简单使用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/07/async-await简单使用/" itemprop="url">async await简单使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-07T14:48:37+08:00">
+                2019-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>async-await用来处理异步请求，解决“回调地狱”问题，ES6也对此作出了标准，就来看看它的基本使用。</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="async语法"><a href="#async语法" class="headerlink" title="async语法"></a>async语法</h3><p>async做为一个关键词，放在函数前面，就表示函数是一个异步函数。调用方式和正常函数一样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">async function timeout() &#123;</span><br><span class="line">	return &quot;hello world&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(timeout());</span><br><span class="line">console.log(&apos;我先执行了&apos;);</span><br></pre></td></tr></table></figure>
+<p>输出结果为：我先执行了  Promise:{<resolved>:’hellow world’}</resolved></p>
+<p>可以看到async返回的是一个Promise对象，可以通过then方法，获取到返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">async function timeout() &#123;</span><br><span class="line">	return &apos;hello world&apos;;</span><br><span class="line">&#125;</span><br><span class="line">timeout.then(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">&#125;)</span><br><span class="line">console.log(&apos;我先执行了&apos;);</span><br></pre></td></tr></table></figure>
+<p>输出结果为：我先执行了   hello world</p>
+<h3 id="async内部实现原理"><a href="#async内部实现原理" class="headerlink" title="async内部实现原理"></a>async内部实现原理</h3><p>如果async函数返回一个值，当调用该函数时，内部会调用Promise.resolve()方法，把结果转换为一个Promise对象返回；如果内部抛出错误，那么调用Promise.reject()方法，返回一个Promise对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">async function timeout(flag) &#123;</span><br><span class="line">	if (flag) &#123;</span><br><span class="line">		return &apos;hello world&apos;;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		throw &apos;fail&apos;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">timeout(true).then(res =&gt; &#123;</span><br><span class="line">	console.log(res);  // hello world   调用Promise.resolve()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">timeout(false).catch(err =&gt; &#123;</span><br><span class="line">	console.log(err);  // fail  调用Promise.reject()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="await简单使用"><a href="#await简单使用" class="headerlink" title="await简单使用"></a>await简单使用</h3><p>await必须放到async函数中，后面可以跟任何表达式，但常用的是一个返回promise对象的表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function double2s(num) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		setTimeout(()=&gt;&#123;</span><br><span class="line">			resolve(num * 2);</span><br><span class="line">		&#125;, 2000)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async function timeout(num) &#123;</span><br><span class="line">	var result = await double2s(num); </span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">timeout(3).then(res =&gt; &#123;</span><br><span class="line">	console.log(res); //6</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>会先输出Promise对象的状态为Pending，2s后输出6</p>
+<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>在一个接口级联的情况下这种处理方式更简单。比如，当用户输入电话号码后，先查找这个电话号码所在的省和市，然后再根据省和市，找到可能充值的面值，进行展示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//根据电话号码查省市</span><br><span class="line">function getProvice(tel) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		//接口调用</span><br><span class="line">		resolve(data);// data: &#123;&quot;provice&quot;: &apos;bj&apos;, &quot;city&quot;: &apos;bj&apos;&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//根据省市查面额</span><br><span class="line">function getFaceList(provice, city) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		//接口调用</span><br><span class="line">		resolve(data);</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async getFaceResult () &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		let prov = await getProvice(tel);</span><br><span class="line">		let list = await getFaceList(prov.provice, prov.city);</span><br><span class="line">		...</span><br><span class="line">	&#125; catch(err) &#123;</span><br><span class="line">		console.log(err); //异常统一处理</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/面试官中的promise/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/07/面试官中的promise/" itemprop="url">面试官中的promise</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-07T09:51:45+08:00">
+                2019-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Promise定义"><a href="#Promise定义" class="headerlink" title="Promise定义"></a>Promise定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	if (true) &#123;</span><br><span class="line">		resolve(data);</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		reject(error);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">&#125;).catch(err =&gt; &#123;</span><br><span class="line">	console.log(error);</span><br><span class="line">&#125;).finally(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Promise捕获错误"><a href="#Promise捕获错误" class="headerlink" title="Promise捕获错误"></a>Promise捕获错误</h3><p>Promise的错误捕获和try…catch是等同的，try…catch只能捕获同步错误</p>
+<h3 id="Promise的状态"><a href="#Promise的状态" class="headerlink" title="Promise的状态"></a>Promise的状态</h3><p>Promise是一个有状态的容器，同一个Promise只能触发一个状态监听（onFulfilled或onRejected）,并且不可改变</p>
+<h3 id="Promise中的回调函数是异步的"><a href="#Promise中的回调函数是异步的" class="headerlink" title="Promise中的回调函数是异步的"></a>Promise中的回调函数是异步的</h3><p>首先Promise中then、catch、finally中的回调都是异步执行的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	resolve();</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		console.log(1);</span><br><span class="line">	&#125;);</span><br><span class="line">	console.log(2);</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">	console.log(3);</span><br><span class="line">&#125;)</span><br><span class="line">console.log(4);</span><br><span class="line"></span><br><span class="line">最终输出结果是2  4  3  1</span><br></pre></td></tr></table></figure>
+<p>Promise是创建即执行，所以先输出2，4，由于resolve先执行，所以输入3，最后是1。原因在于Promise.then是微任务执行的，微任务优先于宏任务执行（setTimeout就是宏任务）</p>
+<h3 id="Promise会存储返回值"><a href="#Promise会存储返回值" class="headerlink" title="Promise会存储返回值"></a>Promise会存储返回值</h3><p>Promise会将最后的返回值存储起来，等下次在使用promise方法时直接返回改值的promise</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	reject(1);</span><br><span class="line">&#125;).catch(error =&gt; &#123;</span><br><span class="line">	console.log(error);</span><br><span class="line">	return 2;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">	p1.then(res =&gt; &#123;</span><br><span class="line">		console.log(res);</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;, 2000)</span><br><span class="line"></span><br><span class="line">输入结果为1, 2(2s后输出)</span><br></pre></td></tr></table></figure>
+<h3 id="Promise每次都返回一个新的Promise"><a href="#Promise每次都返回一个新的Promise" class="headerlink" title="Promise每次都返回一个新的Promise"></a>Promise每次都返回一个新的Promise</h3><p>Promise支持链式调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	reject(1);</span><br><span class="line">&#125;).then(</span><br><span class="line">	res =&gt; &#123;</span><br><span class="line">		console.log(res);</span><br><span class="line">		return 2;</span><br><span class="line">	&#125;,</span><br><span class="line">	err =&gt; &#123;</span><br><span class="line">		console.log(err);</span><br><span class="line">		return 3;</span><br><span class="line">	&#125;</span><br><span class="line">).catch(err =&gt; &#123;</span><br><span class="line">	console.log(err);</span><br><span class="line">	return 4;</span><br><span class="line">&#125;).finally(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">	return 5;</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">	console.log(6);</span><br><span class="line">&#125;, err =&gt; &#123;</span><br><span class="line">	console.log(err);</span><br><span class="line">	console.log(7);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">最终输出结果:1 undefined(finally) 3 6</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/css-modules/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1276,138 +1744,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/如何发布文章/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/05/如何发布文章/" itemprop="url">如何发布文章</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T12:16:09+08:00">
-                2019-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server  || hexo s</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate   || hexo g</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy     || hexo d</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<h3 id="Create-Categories"><a href="#Create-Categories" class="headerlink" title="Create Categories"></a>Create Categories</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page categories</span><br><span class="line"></span><br><span class="line">找到source/categories/index.md,配置上type: &quot;categories&quot;，文章只能有一个分类</span><br><span class="line"></span><br><span class="line">在文章中配置：</span><br><span class="line">categories:</span><br><span class="line">- web前端</span><br></pre></td></tr></table></figure>
-<h3 id="Create-tags"><a href="#Create-tags" class="headerlink" title="Create tags"></a>Create tags</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page tags</span><br><span class="line"></span><br><span class="line">找到source/tags/index.md,配置上type: &quot;tags&quot;，文章可以有多个标签</span><br><span class="line"></span><br><span class="line">在文章中配置：</span><br><span class="line">tags:</span><br><span class="line">- web前端</span><br><span class="line">- 组件化</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1451,7 +1794,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1473,7 +1816,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
