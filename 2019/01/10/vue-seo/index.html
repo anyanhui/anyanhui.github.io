@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="js,es6,function,">
+  <meta name="keywords" content="vue,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Quick StartPromise定义12345678910111213var p1 = new Promise(function(resolve, reject) &amp;#123;	if (true) &amp;#123;		resolve(data);	&amp;#125; else &amp;#123;		reject(error);	&amp;#125;&amp;#125;).then(res =&amp;gt; &amp;#123;	conso">
-<meta name="keywords" content="js,es6,function">
+<meta name="description" content="vue是创建单页面应用的MVVM框架，虽然带来了很好的交互体验，但在SEO这一块却没有很好的解决。现在总结一下常用的方法： Quick StartSSR(后端渲染)插件预渲染vue-meta-info  prerender-spa-plugin nuxtphantomjs">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试官中的promise">
-<meta property="og:url" content="http://yoursite.com/2019/01/07/面试官中的promise/index.html">
+<meta property="og:title" content="vue-seo">
+<meta property="og:url" content="http://yoursite.com/2019/01/10/vue-seo/index.html">
 <meta property="og:site_name" content="FE Blog">
-<meta property="og:description" content="Quick StartPromise定义12345678910111213var p1 = new Promise(function(resolve, reject) &amp;#123;	if (true) &amp;#123;		resolve(data);	&amp;#125; else &amp;#123;		reject(error);	&amp;#125;&amp;#125;).then(res =&amp;gt; &amp;#123;	conso">
+<meta property="og:description" content="vue是创建单页面应用的MVVM框架，虽然带来了很好的交互体验，但在SEO这一块却没有很好的解决。现在总结一下常用的方法： Quick StartSSR(后端渲染)插件预渲染vue-meta-info  prerender-spa-plugin nuxtphantomjs">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-07T07:04:42.000Z">
+<meta property="og:updated_time" content="2019-01-10T14:25:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="面试官中的promise">
-<meta name="twitter:description" content="Quick StartPromise定义12345678910111213var p1 = new Promise(function(resolve, reject) &amp;#123;	if (true) &amp;#123;		resolve(data);	&amp;#125; else &amp;#123;		reject(error);	&amp;#125;&amp;#125;).then(res =&amp;gt; &amp;#123;	conso">
+<meta name="twitter:title" content="vue-seo">
+<meta name="twitter:description" content="vue是创建单页面应用的MVVM框架，虽然带来了很好的交互体验，但在SEO这一块却没有很好的解决。现在总结一下常用的方法： Quick StartSSR(后端渲染)插件预渲染vue-meta-info  prerender-spa-plugin nuxtphantomjs">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/07/面试官中的promise/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/10/vue-seo/">
 
 
 
 
 
-  <title>面试官中的promise | FE Blog</title>
+  <title>vue-seo | FE Blog</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/面试官中的promise/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/vue-seo/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="燕子">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">面试官中的promise</h1>
+          <h1 class="post-title" itemprop="name headline">vue-seo</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-07T09:51:45+08:00">
-                2019-01-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T17:46:33+08:00">
+                2019-01-10
               </time>
             
 
@@ -285,8 +285,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -322,16 +322,10 @@
       
 
       
-        <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Promise定义"><a href="#Promise定义" class="headerlink" title="Promise定义"></a>Promise定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	if (true) &#123;</span><br><span class="line">		resolve(data);</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		reject(error);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">&#125;).catch(err =&gt; &#123;</span><br><span class="line">	console.log(error);</span><br><span class="line">&#125;).finally(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="Promise捕获错误"><a href="#Promise捕获错误" class="headerlink" title="Promise捕获错误"></a>Promise捕获错误</h3><p>Promise的错误捕获和try…catch是等同的，try…catch只能捕获同步错误</p>
-<h3 id="Promise的状态"><a href="#Promise的状态" class="headerlink" title="Promise的状态"></a>Promise的状态</h3><p>Promise是一个有状态的容器，同一个Promise只能触发一个状态监听（onFulfilled或onRejected）,并且不可改变</p>
-<h3 id="Promise中的回调函数是异步的"><a href="#Promise中的回调函数是异步的" class="headerlink" title="Promise中的回调函数是异步的"></a>Promise中的回调函数是异步的</h3><p>首先Promise中then、catch、finally中的回调都是异步执行的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	resolve();</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		console.log(1);</span><br><span class="line">	&#125;);</span><br><span class="line">	console.log(2);</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">	console.log(3);</span><br><span class="line">&#125;)</span><br><span class="line">console.log(4);</span><br><span class="line"></span><br><span class="line">最终输出结果是2  4  3  1</span><br></pre></td></tr></table></figure>
-<p>Promise是创建即执行，所以先输出2，4，由于resolve先执行，所以输入3，最后是1。原因在于Promise.then是微任务执行的，微任务优先于宏任务执行（setTimeout就是宏任务）</p>
-<h3 id="Promise会存储返回值"><a href="#Promise会存储返回值" class="headerlink" title="Promise会存储返回值"></a>Promise会存储返回值</h3><p>Promise会将最后的返回值存储起来，等下次在使用promise方法时直接返回改值的promise</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	reject(1);</span><br><span class="line">&#125;).catch(error =&gt; &#123;</span><br><span class="line">	console.log(error);</span><br><span class="line">	return 2;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">	p1.then(res =&gt; &#123;</span><br><span class="line">		console.log(res);</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;, 2000)</span><br><span class="line"></span><br><span class="line">输入结果为1, 2(2s后输出)</span><br></pre></td></tr></table></figure>
-<h3 id="Promise每次都返回一个新的Promise"><a href="#Promise每次都返回一个新的Promise" class="headerlink" title="Promise每次都返回一个新的Promise"></a>Promise每次都返回一个新的Promise</h3><p>Promise支持链式调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	reject(1);</span><br><span class="line">&#125;).then(</span><br><span class="line">	res =&gt; &#123;</span><br><span class="line">		console.log(res);</span><br><span class="line">		return 2;</span><br><span class="line">	&#125;,</span><br><span class="line">	err =&gt; &#123;</span><br><span class="line">		console.log(err);</span><br><span class="line">		return 3;</span><br><span class="line">	&#125;</span><br><span class="line">).catch(err =&gt; &#123;</span><br><span class="line">	console.log(err);</span><br><span class="line">	return 4;</span><br><span class="line">&#125;).finally(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">	return 5;</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">	console.log(6);</span><br><span class="line">&#125;, err =&gt; &#123;</span><br><span class="line">	console.log(err);</span><br><span class="line">	console.log(7);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">最终输出结果:1 undefined(finally) 3 6</span><br></pre></td></tr></table></figure>
+        <p>vue是创建单页面应用的MVVM框架，虽然带来了很好的交互体验，但在SEO这一块却没有很好的解决。现在总结一下常用的方法：</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="SSR-后端渲染"><a href="#SSR-后端渲染" class="headerlink" title="SSR(后端渲染)"></a>SSR(后端渲染)</h3><h3 id="插件预渲染"><a href="#插件预渲染" class="headerlink" title="插件预渲染"></a>插件预渲染</h3><p>vue-meta-info </p>
+<p>prerender-spa-plugin</p>
+<h3 id="nuxt"><a href="#nuxt" class="headerlink" title="nuxt"></a>nuxt</h3><h3 id="phantomjs"><a href="#phantomjs" class="headerlink" title="phantomjs"></a>phantomjs</h3>
       
     </div>
     
@@ -348,11 +342,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js/" rel="tag"># js</a>
-          
-            <a href="/tags/es6/" rel="tag"># es6</a>
-          
-            <a href="/tags/function/" rel="tag"># function</a>
+            <a href="/tags/vue/" rel="tag"># vue</a>
           
         </div>
       
@@ -365,8 +355,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/05/css-modules/" rel="next" title="css modules">
-                <i class="fa fa-chevron-left"></i> css modules
+              <a href="/2019/01/08/map-foreach区别/" rel="next" title="map-foreach区别">
+                <i class="fa fa-chevron-left"></i> map-foreach区别
               </a>
             
           </div>
@@ -375,8 +365,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/07/async-await简单使用/" rel="prev" title="async await简单使用">
-                async await简单使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/10/浅拷贝-深拷贝/" rel="prev" title="浅拷贝-深拷贝">
+                浅拷贝-深拷贝 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -509,7 +499,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise定义"><span class="nav-number">1.1.</span> <span class="nav-text">Promise定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise捕获错误"><span class="nav-number">1.2.</span> <span class="nav-text">Promise捕获错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise的状态"><span class="nav-number">1.3.</span> <span class="nav-text">Promise的状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise中的回调函数是异步的"><span class="nav-number">1.4.</span> <span class="nav-text">Promise中的回调函数是异步的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise会存储返回值"><span class="nav-number">1.5.</span> <span class="nav-text">Promise会存储返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise每次都返回一个新的Promise"><span class="nav-number">1.6.</span> <span class="nav-text">Promise每次都返回一个新的Promise</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSR-后端渲染"><span class="nav-number">1.1.</span> <span class="nav-text">SSR(后端渲染)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件预渲染"><span class="nav-number">1.2.</span> <span class="nav-text">插件预渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nuxt"><span class="nav-number">1.3.</span> <span class="nav-text">nuxt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phantomjs"><span class="nav-number">1.4.</span> <span class="nav-text">phantomjs</span></a></li></ol></li></ol></div>
             
 
           </div>
