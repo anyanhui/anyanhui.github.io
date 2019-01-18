@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="forEach()和map()两个方法都是ECMA5中Array引进的新方法，主要作用是对数组的每个元素执行一次提供的函数，但是它们之间还是有区别的 Quick Start###forEach语法 1array.forEach(function(currentValue, index, array) &amp;#123;&amp;#125;, this) 参数：当前数组中元素，索引，当前数组    this：可选">
+<meta name="description" content="Quick Start单体模式始终只创建一个对象实例。 为什么使用单体模式121、如果每次创建实例时，实例的功能均完全相同，那么将其设置为单体2、单体可保证命名空间对象和函数井然有序，防止全局命名空间污染 实现方式一123456var singleSlon = &amp;#123;	prop: 1,	another_prop: 1,	method: function() &amp;#123;&amp;#125;,	ano">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="map-foreach区别">
-<meta property="og:url" content="http://yoursite.com/2019/01/08/map-foreach区别/index.html">
+<meta property="og:title" content="设计模式">
+<meta property="og:url" content="http://yoursite.com/2019/01/14/设计模式/index.html">
 <meta property="og:site_name" content="FE Blog">
-<meta property="og:description" content="forEach()和map()两个方法都是ECMA5中Array引进的新方法，主要作用是对数组的每个元素执行一次提供的函数，但是它们之间还是有区别的 Quick Start###forEach语法 1array.forEach(function(currentValue, index, array) &amp;#123;&amp;#125;, this) 参数：当前数组中元素，索引，当前数组    this：可选">
+<meta property="og:description" content="Quick Start单体模式始终只创建一个对象实例。 为什么使用单体模式121、如果每次创建实例时，实例的功能均完全相同，那么将其设置为单体2、单体可保证命名空间对象和函数井然有序，防止全局命名空间污染 实现方式一123456var singleSlon = &amp;#123;	prop: 1,	another_prop: 1,	method: function() &amp;#123;&amp;#125;,	ano">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-08T13:44:30.000Z">
+<meta property="og:updated_time" content="2019-01-14T02:52:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="map-foreach区别">
-<meta name="twitter:description" content="forEach()和map()两个方法都是ECMA5中Array引进的新方法，主要作用是对数组的每个元素执行一次提供的函数，但是它们之间还是有区别的 Quick Start###forEach语法 1array.forEach(function(currentValue, index, array) &amp;#123;&amp;#125;, this) 参数：当前数组中元素，索引，当前数组    this：可选">
+<meta name="twitter:title" content="设计模式">
+<meta name="twitter:description" content="Quick Start单体模式始终只创建一个对象实例。 为什么使用单体模式121、如果每次创建实例时，实例的功能均完全相同，那么将其设置为单体2、单体可保证命名空间对象和函数井然有序，防止全局命名空间污染 实现方式一123456var singleSlon = &amp;#123;	prop: 1,	another_prop: 1,	method: function() &amp;#123;&amp;#125;,	ano">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/08/map-foreach区别/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/14/设计模式/">
 
 
 
 
 
-  <title>map-foreach区别 | FE Blog</title>
+  <title>设计模式 | FE Blog</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/map-foreach区别/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/设计模式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="燕子">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">map-foreach区别</h1>
+          <h1 class="post-title" itemprop="name headline">设计模式</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-08T21:32:24+08:00">
-                2019-01-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-14T10:06:41+08:00">
+                2019-01-14
               </time>
             
 
@@ -327,17 +327,23 @@
       
 
       
-        <p>forEach()和map()两个方法都是ECMA5中Array引进的新方法，主要作用是对数组的每个元素执行一次提供的函数，但是它们之间还是有区别的</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>###forEach语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.forEach(function(currentValue, index, array) &#123;&#125;, this)</span><br></pre></td></tr></table></figure>
-<p>参数：当前数组中元素，索引，当前数组<br>    this：可选，执行回调函数的时候，this的指向</p>
-<p>返回值为undefined</p>
-<p>forEach没有办法终止或跳出循环，除非抛出异常；如果想执行一个数组是否满足什么条件，返回布尔值，可以用一般的for循环，或者用Array.every()、Array.some()</p>
-<h3 id="map语法"><a href="#map语法" class="headerlink" title="map语法"></a>map语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var new_array = array.map(function(currentValue, index, array)&#123;&#125;,this);</span><br></pre></td></tr></table></figure>
-<p>参数：当前数组中元素，索引，当前数组<br>    this：可选，执行回调函数的时候，this的指向</p>
-<p>返回值为一个新数组，原数组不会改变</p>
-<p>不会对空数组做处理</p>
-
+        <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="单体模式"><a href="#单体模式" class="headerlink" title="单体模式"></a>单体模式</h3><p>始终只创建一个对象实例。</p>
+<h4 id="为什么使用单体模式"><a href="#为什么使用单体模式" class="headerlink" title="为什么使用单体模式"></a>为什么使用单体模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、如果每次创建实例时，实例的功能均完全相同，那么将其设置为单体</span><br><span class="line">2、单体可保证命名空间对象和函数井然有序，防止全局命名空间污染</span><br></pre></td></tr></table></figure>
+<h4 id="实现方式一"><a href="#实现方式一" class="headerlink" title="实现方式一"></a>实现方式一</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var singleSlon = &#123;</span><br><span class="line">	prop: 1,</span><br><span class="line">	another_prop: 1,</span><br><span class="line">	method: function() &#123;&#125;,</span><br><span class="line">	another_method: function() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="实现方式二"><a href="#实现方式二" class="headerlink" title="实现方式二"></a>实现方式二</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var singleSlon = (function() &#123;</span><br><span class="line">	var prop = 1;</span><br><span class="line">	function private_method() &#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return &#123;</span><br><span class="line">		another_prop: prop,</span><br><span class="line">		method: function() &#123;</span><br><span class="line">			private_method();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>###单例模式</p>
+<p>只有一个单独的实例，并提供一个访问他的全局访问点。保证一个类只有一个实例，先判断实例是否存在，存在即返回，不存在即创建</p>
+<p>####实现方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var singleSlon = (function() &#123;</span><br><span class="line">	var unique;</span><br><span class="line"></span><br><span class="line">	function getInstance() &#123;</span><br><span class="line">		if (unique === undefined) &#123;</span><br><span class="line">			unique = new Construct();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return unique;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function Construct() &#123;&#125;</span><br><span class="line"></span><br><span class="line">	return &#123;</span><br><span class="line">		getInstance: getInstance</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>###模版模式</p>
+<p>####概念</p>
+<p>就是将一些公共方法封装到父类，子类可以继承父类，并且可以在子类中重写父类的方法</p>
+<p>####实现方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var Parent = function () &#123;&#125;;</span><br><span class="line"></span><br><span class="line">Parent.prototype.writenTest = function() &#123;</span><br><span class="line">	console.log(&apos;笔试题&apos;);</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.leader = function() &#123;</span><br><span class="line">	console.log(&apos;领导面&apos;);</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.init = function() &#123;</span><br><span class="line">	this.writenTest();</span><br><span class="line">	this.leader();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var Ali = function() &#123;&#125;</span><br><span class="line"></span><br><span class="line">Ali.prototype = new Parent();  //关键</span><br><span class="line"></span><br><span class="line">Ali.prototype.leader = function() &#123;</span><br><span class="line">	console.log(&apos;ali领导面&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var ali = new Ali();</span><br><span class="line">ali.init();</span><br></pre></td></tr></table></figure>
+<h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><p>####概念</p>
+<p>代理模式的中文含义就是帮别人做事，javascript的解释为：把对一个对象的访问, 交给另一个代理对象来操作.</p>
+<p>####实现方式(图片懒加载)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var myImage = (function() &#123;</span><br><span class="line">	var imgNode = document.createElement(&apos;img&apos;);</span><br><span class="line">	document.body.appendChild(imgNode);</span><br><span class="line">	reutrn function(src) &#123;</span><br><span class="line">		imgNode.src = src;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">var proxyImage = (function() &#123;</span><br><span class="line">	var img = new Image();</span><br><span class="line">	img.onload = function() &#123;</span><br><span class="line">		myImage(this.src)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return function(src) &#123;</span><br><span class="line">		myImage(&apos;占位图&apos;);</span><br><span class="line">		img.src = src</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">proxyImage(&apos;真实图&apos;)</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -382,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/08/ES6-Module/" rel="next" title="ES6 Module">
-                <i class="fa fa-chevron-left"></i> ES6 Module
+              <a href="/2019/01/10/浅拷贝-深拷贝/" rel="next" title="浅拷贝-深拷贝">
+                <i class="fa fa-chevron-left"></i> 浅拷贝-深拷贝
               </a>
             
           </div>
@@ -392,8 +398,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/10/vue-seo/" rel="prev" title="vue-seo">
-                vue-seo <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/18/前端性能优化/" rel="prev" title="前端性能优化">
+                前端性能优化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -542,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#map语法"><span class="nav-number">1.1.</span> <span class="nav-text">map语法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单体模式"><span class="nav-number">1.1.</span> <span class="nav-text">单体模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么使用单体模式"><span class="nav-number">1.1.1.</span> <span class="nav-text">为什么使用单体模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现方式一"><span class="nav-number">1.1.2.</span> <span class="nav-text">实现方式一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现方式二"><span class="nav-number">1.1.3.</span> <span class="nav-text">实现方式二</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理模式"><span class="nav-number">1.2.</span> <span class="nav-text">代理模式</span></a></li></ol></li></ol></div>
             
 
           </div>
