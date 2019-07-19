@@ -229,6 +229,918 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/面试官中的promise/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/07/面试官中的promise/" itemprop="url">面试官中的promise</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-07T09:51:45+08:00">
+                2019-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Promise定义"><a href="#Promise定义" class="headerlink" title="Promise定义"></a>Promise定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	if (true) &#123;</span><br><span class="line">		resolve(data);</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		reject(error);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">&#125;).catch(err =&gt; &#123;</span><br><span class="line">	console.log(error);</span><br><span class="line">&#125;).finally(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Promise捕获错误"><a href="#Promise捕获错误" class="headerlink" title="Promise捕获错误"></a>Promise捕获错误</h3><p>Promise的错误捕获和try…catch是等同的，try…catch只能捕获同步错误</p>
+<h3 id="Promise的状态"><a href="#Promise的状态" class="headerlink" title="Promise的状态"></a>Promise的状态</h3><p>Promise是一个有状态的容器，同一个Promise只能触发一个状态监听（onFulfilled或onRejected）,并且不可改变</p>
+<h3 id="Promise中的回调函数是异步的"><a href="#Promise中的回调函数是异步的" class="headerlink" title="Promise中的回调函数是异步的"></a>Promise中的回调函数是异步的</h3><p>首先Promise中then、catch、finally中的回调都是异步执行的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	resolve();</span><br><span class="line">	setTimeout(function() &#123;</span><br><span class="line">		console.log(1);</span><br><span class="line">	&#125;);</span><br><span class="line">	console.log(2);</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">	console.log(3);</span><br><span class="line">&#125;)</span><br><span class="line">console.log(4);</span><br><span class="line"></span><br><span class="line">最终输出结果是2  4  3  1</span><br></pre></td></tr></table></figure>
+<p>Promise是创建即执行，所以先输出2，4，由于resolve先执行，所以输入3，最后是1。原因在于Promise.then是微任务执行的，微任务优先于宏任务执行（setTimeout就是宏任务）</p>
+<h3 id="Promise会存储返回值"><a href="#Promise会存储返回值" class="headerlink" title="Promise会存储返回值"></a>Promise会存储返回值</h3><p>Promise会将最后的返回值存储起来，等下次在使用promise方法时直接返回改值的promise</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	reject(1);</span><br><span class="line">&#125;).catch(error =&gt; &#123;</span><br><span class="line">	console.log(error);</span><br><span class="line">	return 2;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">	p1.then(res =&gt; &#123;</span><br><span class="line">		console.log(res);</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;, 2000)</span><br><span class="line"></span><br><span class="line">输入结果为1, 2(2s后输出)</span><br></pre></td></tr></table></figure>
+<h3 id="Promise每次都返回一个新的Promise"><a href="#Promise每次都返回一个新的Promise" class="headerlink" title="Promise每次都返回一个新的Promise"></a>Promise每次都返回一个新的Promise</h3><p>Promise支持链式调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function(resolve, reject) &#123;</span><br><span class="line">	reject(1);</span><br><span class="line">&#125;).then(</span><br><span class="line">	res =&gt; &#123;</span><br><span class="line">		console.log(res);</span><br><span class="line">		return 2;</span><br><span class="line">	&#125;,</span><br><span class="line">	err =&gt; &#123;</span><br><span class="line">		console.log(err);</span><br><span class="line">		return 3;</span><br><span class="line">	&#125;</span><br><span class="line">).catch(err =&gt; &#123;</span><br><span class="line">	console.log(err);</span><br><span class="line">	return 4;</span><br><span class="line">&#125;).finally(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">	return 5;</span><br><span class="line">&#125;).then(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">	console.log(6);</span><br><span class="line">&#125;, err =&gt; &#123;</span><br><span class="line">	console.log(err);</span><br><span class="line">	console.log(7);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">最终输出结果:1 undefined(finally) 3 6</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/css-modules/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/css-modules/" itemprop="url">css modules</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T17:21:26+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="css作用域"><a href="#css作用域" class="headerlink" title="css作用域"></a>css作用域</h3><p>css modules功能很单纯，只加入了局部作用域和模块依赖,可以保证某个组件的样式，不会影响到其他组件</p>
+<h4 id="局部作用域"><a href="#局部作用域" class="headerlink" title="局部作用域"></a>局部作用域</h4><p>产生局部作用域的唯一方法，就是使用一个独一无二的class名字，不会与其他选择器重名。CSS Modules提供了各种插件，支持不同的构建工具。如css-loader</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">app.css定义</span><br><span class="line">.title &#123;color:green;&#125;</span><br><span class="line">引用</span><br><span class="line">import styles from app.css</span><br><span class="line">使用</span><br><span class="line">class=&quot;styles.title&quot;</span><br><span class="line"></span><br><span class="line">webpack配置</span><br><span class="line">&#123;</span><br><span class="line">	test: /\.css$/,</span><br><span class="line">	loader: &quot;style-loader!css-loader?modules&quot;//增加modules参数，说明开启css modules功能</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h4><p>CSS Modules允许使用:global(.className)语法，声明一个全局规则。不会被编译成哈希字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">app.css定义</span><br><span class="line">:global(.title) &#123;color:green;&#125;</span><br><span class="line">引用</span><br><span class="line">import styles from app.css</span><br><span class="line">使用</span><br><span class="line">class=&quot;title&quot;</span><br><span class="line"></span><br><span class="line">webpack配置</span><br><span class="line">&#123;</span><br><span class="line">	test: /\.css$/,</span><br><span class="line">	loader: &quot;style-loader!css-loader?modules&quot;//增加modules参数，说明开启css modules功能</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>####定制哈希类名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">webpack配置</span><br><span class="line">&#123;</span><br><span class="line">	test: /\.css$/,</span><br><span class="line">	loader: &quot;style-loader!css-loader?modules&amp;localIdentName=[path][name]---[local]---[hash:base64:5]&quot;//增加modules参数，说明开启css modules功能</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>####class组合</p>
+<p>在CSS Modules中，一个选择器可以继承另一个选择器的规则，这称为“组合”(composition)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">app.css定义</span><br><span class="line">.common-title &#123;background-color:blue;&#125;</span><br><span class="line">.title &#123;composes: common-title;color:green;&#125;</span><br><span class="line">引用</span><br><span class="line">import styles from app.css</span><br><span class="line">使用</span><br><span class="line">class=&quot;title&quot;</span><br><span class="line"></span><br><span class="line">webpack配置</span><br><span class="line">&#123;</span><br><span class="line">	test: /\.css$/,</span><br><span class="line">	loader: &quot;style-loader!css-loader?modules&quot;//增加modules参数，说明开启css modules功能</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="输入其他模块"><a href="#输入其他模块" class="headerlink" title="输入其他模块"></a>输入其他模块</h4><p>选择器也可以继承其他css文件里面的规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">another.css</span><br><span class="line">.common-title &#123;background-color:blue;&#125;</span><br><span class="line"></span><br><span class="line">app.css定义</span><br><span class="line"></span><br><span class="line">.title &#123;composes: common-title from &apos;./another.css&apos;;color:green;&#125;</span><br><span class="line">引用</span><br><span class="line">import styles from app.css</span><br><span class="line">使用</span><br><span class="line">class=&quot;title&quot;</span><br></pre></td></tr></table></figure>
+<p>####输入变量</p>
+<p>支持输入变量，不过需要安装PostCSS和postcss-modules-values</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save postcss-loader postcss-modules-values</span><br></pre></td></tr></table></figure>
+<p>把postcss-loader加入webpack.config.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line">	loaders: [</span><br><span class="line">		&#123;</span><br><span class="line">			test: /\.css$/,</span><br><span class="line">			loader: &quot;style-loader!css-loader?modules!postcss-loader&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;,</span><br><span class="line">postcss: [</span><br><span class="line">    values</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>接着，在colors.css里面定义变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@value blue: #0c77f8;</span><br><span class="line">	@value red: #ff0000;</span><br><span class="line">	@value green: #aaf200;</span><br></pre></td></tr></table></figure>
+<p>App.css可以引用这些变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@value colors: &quot;./colors.css&quot;;</span><br><span class="line">	@value blue, red, green from colors;</span><br><span class="line"></span><br><span class="line">	.title &#123;</span><br><span class="line">  		color: red;</span><br><span class="line">  		background-color: blue;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/css面试题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/css面试题/" itemprop="url">css面试题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T16:34:51+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">上三角</span><br><span class="line">div &#123;</span><br><span class="line">	width: 0;</span><br><span class="line">	height: 0;</span><br><span class="line">	border-width:10px;</span><br><span class="line">	border-style:solid;</span><br><span class="line">	border-color: transparent transparent #ccc transparent;(top right bottom left)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="伪类的使用"><a href="#伪类的使用" class="headerlink" title="伪类的使用"></a>伪类的使用</h3><h3 id="flex布局"><a href="#flex布局" class="headerlink" title="flex布局"></a>flex布局</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">容器</span><br><span class="line">	div &#123;</span><br><span class="line">		display: flex;</span><br><span class="line">		flex-direction:row; //方向:row | column | row-reverse | column-reverse</span><br><span class="line">		flex-wrap: nowrap;//换行：nowrap | wrap | wrap-reverse</span><br><span class="line">		justify-content: flex-start; // 主轴对齐方式:flex-start|flex-end|center|space-between|space-around</span><br><span class="line">		align-items:stretch;//在交叉轴对齐方式：flex-start|flex-end|center|baseline|stretch(默认值)</span><br><span class="line">		align-content:stretch;//多根轴对齐方式：flex-start|flex-end|center|space-between|space-around|stretch</span><br><span class="line">	&#125;</span><br><span class="line">项目属性</span><br><span class="line">	item &#123;</span><br><span class="line">		order: 0;//定义项目的排列顺序，值越小越靠前</span><br><span class="line">		flex-grow:0;//定义项目的放大比例，默认0，即如果存在剩余空间，也不放大；为1，将等分剩余空间</span><br><span class="line">		flex-shrink:1;//定义项目的缩小比例，默认1，即如果空间不足，该项目将缩小；当前为0，其他为1，则空间不足时，该项目不缩小</span><br><span class="line">		flex-basis:auto;//定义在分配多余空间之前，项目占据的主轴空间，可以是固定空间（300px）</span><br><span class="line">		flex:0 1 auto;//是前三个值的缩写</span><br><span class="line">		align-self:auto;//可覆盖align-items,auto表示集成父元素的align-items</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Material-Design占位符交互效果"><a href="#Material-Design占位符交互效果" class="headerlink" title="Material Design占位符交互效果"></a>Material Design占位符交互效果</h3><p>可以借助CSS :placeholder-shown伪类，表示，当输入框的placeholder内容显示的时候，输入框干嘛干嘛</p>
+<p>下面展示:placeholder-shown实现label特性占位符案例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">html结构：</span><br><span class="line">&lt;h4&gt;填充风格&lt;/h4&gt;</span><br><span class="line">&lt;div class=&quot;input-fill-x&quot;&gt;</span><br><span class="line">	&lt;input type=&quot;text&quot; class=&quot;input-control input-fill&quot; placeholder=&quot;邮箱&quot;&gt;</span><br><span class="line">	&lt;label class=&quot;input-label&quot;&gt;邮箱&lt;/label&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">css：</span><br><span class="line">/*默认placeholder颜色透明不可见*/</span><br><span class="line">.input-fill:placeholder-shown::placeholder &#123;</span><br><span class="line">	color: transparent;</span><br><span class="line">&#125;</span><br><span class="line">.input-fill-x &#123;</span><br><span class="line">	position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.input-label &#123;</span><br><span class="line">	position: absolute;</span><br><span class="line">	left: 16px;</span><br><span class="line">	top: 14px;</span><br><span class="line">	pointer-events: none; </span><br><span class="line">&#125;</span><br><span class="line">.input-fill:not(:placeholder-shown) ~ .input-label, .input-fill:focus ~ .input-label &#123;</span><br><span class="line">	transform: scale(0.75) translate(0, -32px);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/闭包/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/闭包/" itemprop="url">闭包</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T15:56:57+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>函数创建时允许操作该作用域内的变量和方法</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>只要闭包函数存在，其作用域内的变量就会存在内存中，不能滥用闭包</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>1、内部函数的参数是包含在闭包中的</p>
+<p>2、作用域之外的所有变量，即便是函数声明之后的那些声明，也都包含在闭包中</p>
+<p>3、相同的作用域内，尚未声明的变量不能进行提前引用</p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>1、私有变量、方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function test() &#123;</span><br><span class="line">	var private_a = 1;</span><br><span class="line"></span><br><span class="line">	return function(num) &#123;</span><br><span class="line">		private_a = num;</span><br><span class="line">		console.log(private_a);</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line">test()(5); //5</span><br></pre></td></tr></table></figure>
+<p>2、回调函数及定时器</p>
+<p>3、绑定函数上下文，bind函数实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.bind = function() &#123;</span><br><span class="line">	var fn = this;</span><br><span class="line">	var args = Array.prototype.slice.call(arguments);</span><br><span class="line">	var object = args.shift();</span><br><span class="line"></span><br><span class="line">	return function() &#123;</span><br><span class="line">		return fn.apply(object, args.concat(args, Array.prototype.slice.call(arguments)));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：apply、call和bind的区别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apply：对象、传数组、立即执行</span><br><span class="line">call：对象、传所有参数，不是数组、立即执行</span><br><span class="line">bind：函数、第一个为对象，返回一个函数、稍后执行，只有第一次绑定生效</span><br></pre></td></tr></table></figure>
+<p>4、偏应用函数（柯里化partial）</p>
+<p>返回一个含有预处理参数的新函数，以便后期可以使用</p>
+<p>柯里化：在一个函数中首先填入几个参数，然后再返回一个新函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.partial = function() &#123;</span><br><span class="line">	var args = Array.prototype.slice.call(arguments);</span><br><span class="line">	var fn = this;</span><br><span class="line">	return function() &#123;</span><br><span class="line">		return fn.apply(this,args.concat(Array.prototype.slice.call(arguments)));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/原型和原型链/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/原型和原型链/" itemprop="url">原型和原型链</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T15:28:28+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>javascript中万物都为对象</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="什么是原型"><a href="#什么是原型" class="headerlink" title="什么是原型"></a>什么是原型</h3><p>原型是对象，函数都有一个prototype属性（除了Function及Fnction.bind()返回的函数），这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。</p>
+<p>因此，prototype属性指向的对象就是原型对象</p>
+<p>原型对象有一个constructor属性，指向prototype属性所在的构造函数</p>
+<p>所有对象都有一个<strong>proto</strong>属性，指向创建它的构造函数的原型对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">原型对象：Person.prototype</span><br><span class="line">原型对象的constructor: Person.prototype.constructor == Person</span><br><span class="line">实例的constructor指向构造函数</span><br><span class="line">var person = new Person();</span><br><span class="line">person.constructor == Person</span><br><span class="line">person.__proto__ == Person.prototype</span><br></pre></td></tr></table></figure>
+<p>因此原型对象也是构造函数的一个实例</p>
+<p>但是Object.prototype == null // true</p>
+<h3 id="什么是原型链"><a href="#什么是原型链" class="headerlink" title="什么是原型链"></a>什么是原型链</h3><p>原型对象主要用途用作继承、形成原型链。访问一个对象的属性时，先在基本属性中查找，如果没有，再沿着<strong>proto</strong>这条链向上找，这就是原型链。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/图片懒加载原理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/图片懒加载原理/" itemprop="url">图片懒加载原理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T14:55:06+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>web前端开发中，对于一个有较多图片加载的网站，在首屏性能优化中，图片懒加载是必不可少的。</p>
+<p>jquery有jquery-lazyload插件</p>
+<p>vue有vue-lazy-load插件</p>
+<p>这些已有的轮子都能提高开发效率，但原理也要有所了解</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="原理一"><a href="#原理一" class="headerlink" title="原理一"></a>原理一</h3><p>img标签的src属性赋值为同一个1px的图片，把原图设置为一个自定义属性,eg:data-srcset=””,这样做的好处是图片只会从服务器请求一次，而自定义属性的原图地址是不请求的，减少请求数和带宽</p>
+<h3 id="原理二"><a href="#原理二" class="headerlink" title="原理二"></a>原理二</h3><p>通过判断img元素是否在可视区域，来动态把自定义属性的值，赋值给src，去加载原始图</p>
+<h3 id="简易代码"><a href="#简易代码" class="headerlink" title="简易代码"></a>简易代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//可是窗口大小</span><br><span class="line">var wHeight = window.innerHeight || document.documentElement.clienHeight || document.body.clientHeight;</span><br><span class="line"></span><br><span class="line">//滚动距离</span><br><span class="line">var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop</span><br><span class="line"></span><br><span class="line">//var ptop = parent.offsetTop;</span><br><span class="line"></span><br><span class="line">//元素的宽高、顶部和左边的距离</span><br><span class="line">var itemH = obj.offsetHeight;</span><br><span class="line">var itemTop = obj.offsetTop;</span><br><span class="line">var itemLeft = obj.offsetLeft;</span><br><span class="line"></span><br><span class="line">//对象顶部与文档顶部的距离小于父元素底部与文档顶部距离，则垂直方向进入可视区域</span><br><span class="line">post = itemTop - (wHeight + scrollTop) &lt; 0</span><br><span class="line"></span><br><span class="line">//对象底部与文档顶部的距离大于父元素顶部与文档顶部距离，则垂直方向进入可视区域</span><br><span class="line">posb = itemTop + itemH - scrollTop &gt; 0</span><br><span class="line"></span><br><span class="line">遍历所有的img元素，进入可视区域后，把当前元素移除</span><br></pre></td></tr></table></figure>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>快速滑动的时候，会引起函数节流与防抖</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/函数节流和防抖/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -480,6 +1392,8 @@
 <h3 id="怎么做到前后端分离"><a href="#怎么做到前后端分离" class="headerlink" title="怎么做到前后端分离"></a>怎么做到前后端分离</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、JS模版技术的出现，可以让控制层放在前端。通过Ajax获取数据，返回给JS模版，进行数据渲染。这样做的好处不仅仅是控制层和视图层的解耦，同时还会提升页面的相应效率，第一：服务端不需要直接把渲染好的页面发送到前端，只要传输数据，减少了数据量的传输，第二：只需传递数据，这样服务端和前端可以采用统一的数据格式、规范，对项目的管理、维护都会带来好处。</span><br><span class="line"></span><br><span class="line">2、通过window.hashChange事件监听url的hash值的变化及ajax请求来模拟页面的同步提交，控制不同的视图展示，类似路由功能</span><br></pre></td></tr></table></figure>
 <h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">为了让一个页面对应的数据模型、视图页面和js代码跟其他页面有界限，因此需要模块化。将一个复杂的程序依据一定的规范封装成几个文件，并进行组合在一起。一个模块就是实现特定功能的文件，提供相应的接口供调用。</span><br><span class="line"></span><br><span class="line">减少命名空间污染、更好的分离，按需加载、更高的复用性、更高的可维护性</span><br><span class="line"></span><br><span class="line">为了规范模块开发，出现了AMD和CommonJS规范。</span><br><span class="line"></span><br><span class="line">####AMD</span><br><span class="line"></span><br><span class="line">即Asynchronous Module Definition,中文“异步模块定义”的意思。它是一个在浏览器端模块化开发的规范，模块将被异步加载，不影响后面语句的运行。</span><br><span class="line"></span><br><span class="line">define(id,[依赖], function()&#123;&#125;)</span><br><span class="line"></span><br><span class="line">####CommonJS</span><br><span class="line"></span><br><span class="line">服务端模块的规范，eg：NodeJS。输出模块变量最好的方法是使用module.exports对象,加载模块使用require方法</span><br></pre></td></tr></table></figure>
 <h3 id="前后分离后，前端要做的"><a href="#前后分离后，前端要做的" class="headerlink" title="前后分离后，前端要做的"></a>前后分离后，前端要做的</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目化、工程化，需要系统架构、开发规范、自动化合并压缩、自动化发布、前端监控和分析、前端性能优化等</span><br></pre></td></tr></table></figure>
+<h3 id="灰度发布"><a href="#灰度发布" class="headerlink" title="灰度发布"></a>灰度发布</h3><p>灰度发布通常分为多个阶段：【1】1%；【2】5~10%；【3】30~50%；【4】全量推送（100%）。灰度发布一定要允许配置某些IP/账号访问时，可以直接访问到灰度版本。</p>
+
           
         
       
@@ -693,7 +1607,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -704,7 +1618,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -715,7 +1629,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

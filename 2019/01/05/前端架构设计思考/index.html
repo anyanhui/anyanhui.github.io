@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="FE Blog">
 <meta property="og:description" content="Web前端技术现在高速发展，市场上出现了很多前端框架，又以React、AngularJS和Vue为领头羊，这三个的MVVM模式，确实为前后端分离及前端架构上做了很好的底层模版支持，但本文不是讨论这三大框架的优缺点，而是从传统web开发模式，浅谈自己对前后端分离及前端架构设计的一些思考。 Quick Start传统Web开发模式的痛点1231、由于控制层在服务端，在模版渲染和路由控制上，全部依赖服务">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-05T05:53:41.000Z">
+<meta property="og:updated_time" content="2019-06-04T02:23:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端架构设计思考">
 <meta name="twitter:description" content="Web前端技术现在高速发展，市场上出现了很多前端框架，又以React、AngularJS和Vue为领头羊，这三个的MVVM模式，确实为前后端分离及前端架构上做了很好的底层模版支持，但本文不是讨论这三大框架的优缺点，而是从传统web开发模式，浅谈自己对前后端分离及前端架构设计的一些思考。 Quick Start传统Web开发模式的痛点1231、由于控制层在服务端，在模版渲染和路由控制上，全部依赖服务">
@@ -332,6 +332,8 @@
 <h3 id="怎么做到前后端分离"><a href="#怎么做到前后端分离" class="headerlink" title="怎么做到前后端分离"></a>怎么做到前后端分离</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、JS模版技术的出现，可以让控制层放在前端。通过Ajax获取数据，返回给JS模版，进行数据渲染。这样做的好处不仅仅是控制层和视图层的解耦，同时还会提升页面的相应效率，第一：服务端不需要直接把渲染好的页面发送到前端，只要传输数据，减少了数据量的传输，第二：只需传递数据，这样服务端和前端可以采用统一的数据格式、规范，对项目的管理、维护都会带来好处。</span><br><span class="line"></span><br><span class="line">2、通过window.hashChange事件监听url的hash值的变化及ajax请求来模拟页面的同步提交，控制不同的视图展示，类似路由功能</span><br></pre></td></tr></table></figure>
 <h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">为了让一个页面对应的数据模型、视图页面和js代码跟其他页面有界限，因此需要模块化。将一个复杂的程序依据一定的规范封装成几个文件，并进行组合在一起。一个模块就是实现特定功能的文件，提供相应的接口供调用。</span><br><span class="line"></span><br><span class="line">减少命名空间污染、更好的分离，按需加载、更高的复用性、更高的可维护性</span><br><span class="line"></span><br><span class="line">为了规范模块开发，出现了AMD和CommonJS规范。</span><br><span class="line"></span><br><span class="line">####AMD</span><br><span class="line"></span><br><span class="line">即Asynchronous Module Definition,中文“异步模块定义”的意思。它是一个在浏览器端模块化开发的规范，模块将被异步加载，不影响后面语句的运行。</span><br><span class="line"></span><br><span class="line">define(id,[依赖], function()&#123;&#125;)</span><br><span class="line"></span><br><span class="line">####CommonJS</span><br><span class="line"></span><br><span class="line">服务端模块的规范，eg：NodeJS。输出模块变量最好的方法是使用module.exports对象,加载模块使用require方法</span><br></pre></td></tr></table></figure>
 <h3 id="前后分离后，前端要做的"><a href="#前后分离后，前端要做的" class="headerlink" title="前后分离后，前端要做的"></a>前后分离后，前端要做的</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目化、工程化，需要系统架构、开发规范、自动化合并压缩、自动化发布、前端监控和分析、前端性能优化等</span><br></pre></td></tr></table></figure>
+<h3 id="灰度发布"><a href="#灰度发布" class="headerlink" title="灰度发布"></a>灰度发布</h3><p>灰度发布通常分为多个阶段：【1】1%；【2】5~10%；【3】30~50%；【4】全量推送（100%）。灰度发布一定要允许配置某些IP/账号访问时，可以直接访问到灰度版本。</p>
+
       
     </div>
     
@@ -469,7 +471,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -480,7 +482,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -491,7 +493,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -540,7 +542,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统Web开发模式的痛点"><span class="nav-number">1.1.</span> <span class="nav-text">传统Web开发模式的痛点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么做到前后端分离"><span class="nav-number">1.2.</span> <span class="nav-text">怎么做到前后端分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块化"><span class="nav-number">1.3.</span> <span class="nav-text">模块化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前后分离后，前端要做的"><span class="nav-number">1.4.</span> <span class="nav-text">前后分离后，前端要做的</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统Web开发模式的痛点"><span class="nav-number">1.1.</span> <span class="nav-text">传统Web开发模式的痛点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么做到前后端分离"><span class="nav-number">1.2.</span> <span class="nav-text">怎么做到前后端分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块化"><span class="nav-number">1.3.</span> <span class="nav-text">模块化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前后分离后，前端要做的"><span class="nav-number">1.4.</span> <span class="nav-text">前后分离后，前端要做的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#灰度发布"><span class="nav-number">1.5.</span> <span class="nav-text">灰度发布</span></a></li></ol></li></ol></div>
             
 
           </div>

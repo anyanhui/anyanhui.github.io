@@ -229,6 +229,902 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/web实时消息交互方式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/18/web实时消息交互方式/" itemprop="url">web实时消息交互方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-18T16:19:11+08:00">
+                2019-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Web消息交互技术"><a href="#Web消息交互技术" class="headerlink" title="Web消息交互技术"></a>Web消息交互技术</h3><table>
+<thead>
+<tr>
+<th>应用技术</th>
+<th>说明</th>
+<th>优缺点  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>轮询（polling）</td>
+<td>这应该是最常见的一种实现数据交互的方式，开发人员控制客户端以一定时间间隔中向服务器发送Ajax查询请求大，但是也因此，当服务器端内容并没有显著变化时，这种连接方式将带来很多无效的请求，造成服务器资源损耗。适合并发量小，实时性要求低的应用模型，更像是定时任务。</td>
+<td>优点：实现最为简单，配置简单，出错几率小 <br>缺点：每次都是一次完整的http请求，易延迟，有效请求命中率少，并发较大时，服务器资源损耗大 </td>
+</tr>
+<tr>
+<td>长轮询（longpolling）</td>
+<td>长轮询是对轮询的改进，客户端通过请求连接到服务器，并保持一段时间的连接状态，直到消息更新或超时才返回Response并中止连接，可以有效减少无效请求的次数。属于Comet实现</td>
+<td>优点：有效减少无效连接，实时性较高 <br>缺点：客户端和服务器端保持连接造成资源浪费，服务器端信息更新频繁时，longpolling并不比polling高效，并且当数据量很大时，会造成连续的polls不断产生，性能上反而更糟糕 </td>
+</tr>
+<tr>
+<td>iframe流</td>
+<td>iframe流方式是在页面中插入一个隐藏的iframe，利用其src属性在服务器和客户端之间创建一条长链接，服务器向iframe传输数据（通常是HTML，内有负责插入信息的javascript），来实时更新页面。属于Comet实现</td>
+<td>优点：实时性高，浏览器兼容度好 <br>缺点：客户端和服务器端保持长连接造成资源浪费</td>
+</tr>
+<tr>
+<td>WebSocket</td>
+<td>WebSocket是HTML5提供的一种在单个 TCP 连接上进行全双工通讯的协议，目前chrome、Firefox、Opera、Safari等主流版本均支持，Internet Explorer从10开始支持。另外因为WebSocket 提供浏览器一个原生的 socket实现，所以直接解決了 Comet 架构很容易出错的问题，而在整個架构的复杂度上也比传统的实现简单得多</td>
+<td>优点：服务器与客户端之间交换的数据包档头很小，节约带宽。全双工通信，服务器可以主动传送数据给客户端。 <br>缺点：旧版浏览器不支持 </td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/vue优化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/20/vue优化/" itemprop="url">vue优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-20T15:31:56+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h3><h4 id="一、Object-freeze"><a href="#一、Object-freeze" class="headerlink" title="一、Object.freeze"></a>一、Object.freeze</h4><p>针对table列表数据，可以使用这个方法，切断vue的数据劫持</p>
+<h4 id="二、beforDestroy和deactivated"><a href="#二、beforDestroy和deactivated" class="headerlink" title="二、beforDestroy和deactivated"></a>二、beforDestroy和deactivated</h4><p>在离开组件时把data中相应的数据清空</p>
+<h3 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h3><h4 id="1、v-if使用"><a href="#1、v-if使用" class="headerlink" title="1、v-if使用"></a>1、v-if使用</h4><p>之前都是直接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-if=&quot;isshow&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">	export default &#123;</span><br><span class="line">    	data()&#123;</span><br><span class="line">        	return&#123;</span><br><span class="line">        		isshow: false</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>在isshow没有获取到数据之前，div结构是在页面中存在的，有值后才消失的，这就涉及到了重绘，应当</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template v-if=&quot;isshow&quot;&gt;</span><br><span class="line">	&lt;div&gt;&lt;/div&gt;</span><br><span class="line">&lt;/&lt;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">	export default &#123;</span><br><span class="line">    	data()&#123;</span><br><span class="line">        	return&#123;</span><br><span class="line">        		isshow: false</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/12/echarts优化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/12/echarts优化/" itemprop="url">echarts优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-12T10:13:06+08:00">
+                2019-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Echarts数据量大，导致浏览器卡顿"><a href="#Echarts数据量大，导致浏览器卡顿" class="headerlink" title="Echarts数据量大，导致浏览器卡顿"></a>Echarts数据量大，导致浏览器卡顿</h3><h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>每一个图例在没有数据的时候它会创建一个定时器去渲染气泡，页面切换后，echarts图例是销毁了，但是这个echarts的实例还在内存当中，同时它的气泡渲染定时器还在运行。这就导致Echarts占用CPU高，导致浏览器卡顿，当数据量比较大时甚至浏览器崩溃。</p>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><p>在mounted()方法和destroy()方法之间加一个beforeDestroy()方法释放该页面的chart资源，我也试过使用dispose()方法，但是dispose销毁这个图例，图例是不存在了，但图例的resize()方法会启动，则会报没有resize这个方法，而clear()方法则是清空图例数据，不影响图例的resize，而且能够释放内存，切换的时候就很顺畅了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">beforeDestroy () &#123;</span><br><span class="line">	this.chart.clear()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/mqtt/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/10/mqtt/" itemprop="url">mqtt</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-10T15:00:29+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="MQTT概念"><a href="#MQTT概念" class="headerlink" title="MQTT概念"></a>MQTT概念</h3><p>WebSphere MQ Telemetry Transport (MQTT) 是一项异步消息传输协议，专门为物联网所定制的重要的轻量级消息传输协议。</p>
+<p>MQTT是轻量级基于代理的发布 / 订阅的消息传输协议，设计思想是开放、简单、轻量、易于实现</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>使用发布／订阅消息模式，提供一对多的消息发布，解除应用程序耦合</li>
+<li>对负载内容屏蔽的消息传输</li>
+<li>使用TCP／IP提供网络连接</li>
+<li>有三种消息发布服务质量<ul>
+<li>“至多一次”，消息发布完全依赖底层TCP/IP网络。会发生消息丢失或重复。这一级别可用于如下情况，环境传感器数据，丢失一次读记录无所谓，因为不久后还会有第二次发送</li>
+<li>“至少一次”，确保消息到达，但消息重复可能会发生</li>
+<li>“只有一次”，确保消息到达一次。这一级别可用于如下情况，在计费系统中，消息重复或丢失会导致不正确的结果。</li>
+</ul>
+</li>
+<li>小型传输，开销很小（固定长度的头部是2字节），协议交换最小化，以降低网络流量</li>
+<li>使用Last Will和Testament特性通知有关各方客户端异常中断的机制</li>
+</ul>
+<h3 id="推送服务"><a href="#推送服务" class="headerlink" title="推送服务"></a>推送服务</h3><p>推送服务表现为客户端能自动收到服务器发送过来的数据和信息。</p>
+<p>推送服务本质上是服务器主动将消息，数据发送到客户端，而不是客户端主动去服务器请求数据。这种推送只需要客户端与服务器连接后，在有数据的情况下，服务器端马上将数据发送到客户端。这里的客户端可以是多种类型的，比如比较常见的浏览器，移动应用等等。</p>
+<p>推送服务的实现方式大致可分为 Poll 和 Push 模式：</p>
+<h4 id="Poll模式"><a href="#Poll模式" class="headerlink" title="Poll模式"></a>Poll模式</h4><p>Poll 模式，本质上是”伪推送”模式，或者叫短轮询模式。是客户端通过设定固定的时间间隔，然后在时间间隔到达后，客户端主动向服务器发送请求，去更新是否有新数据。这种模式的特点是，客户端需要不停的轮询访问服务器获取信息</p>
+<h4 id="Push模式"><a href="#Push模式" class="headerlink" title="Push模式"></a>Push模式</h4><p>Push 模式，一般意义上使用长连接去建立一个客户端到服务器的双向数据通道，只要在连接建立后，一旦一方有数据更新，就可以马上通过双向的数据通道向对方发送数据，平时在没有数据时，通过一些心跳等机制维持通道连接。Push 模式的特点，简化的客户端的开发，数据能近乎实时的发送到对方。但其在设备资源消耗和网络流量控制方面，根据其使用的不同协议会有很大不同，特别是在移动推送领域，长连接对移动设备电量和网络流量的消耗要求较高。同时，由于需要维护长连接，对服务器在高并发连接的处理能力和性能也有很高要求</p>
+<h3 id="移动推送服务"><a href="#移动推送服务" class="headerlink" title="移动推送服务"></a>移动推送服务</h3><p>主流的移动推送解决方案如下：</p>
+<h4 id="SMS短信"><a href="#SMS短信" class="headerlink" title="SMS短信"></a>SMS短信</h4><h4 id="HTTP轮询"><a href="#HTTP轮询" class="headerlink" title="HTTP轮询"></a>HTTP轮询</h4><p>使用定时的 HTTP 轮询方式，及客户端在一定的时间间隔里去重复向服务器请求数据更新，属于”伪推送”，由于其协议复杂冗余，轮询间隔的不准确，耗费了不必要的流量，增加了终端用户网络成本等因素，现有的这种方式已经不适合做移动推送服务。</p>
+<h4 id="XMPP"><a href="#XMPP" class="headerlink" title="XMPP"></a>XMPP</h4><p>XMPP 是基于 XML 的通讯协议，此协议已基本上完成了标准化，成熟，强大，可扩展性强。但正是由于其协议复杂，冗余的设计，成为其在移动设备上短板，比如协议的复杂带来其协议栈的耗电增加，冗余的设计使得网络流量偏大，用户成本增加。</p>
+<h4 id="私有厂商协议和平台"><a href="#私有厂商协议和平台" class="headerlink" title="私有厂商协议和平台"></a>私有厂商协议和平台</h4><p>私有厂商推出的推送服务，由于其协议私有，其传输效率和质量上无法量化和考证，而且还往往无法实现跨平台推送。同时，有些厂商提供的消息服务器不具备公开性，导致在用户数据安全性特别是服务器掌控方面存在担心</p>
+<h3 id="基于WebSocket的MQTT跨平台推送服务方案"><a href="#基于WebSocket的MQTT跨平台推送服务方案" class="headerlink" title="基于WebSocket的MQTT跨平台推送服务方案"></a>基于WebSocket的MQTT跨平台推送服务方案</h3><h4 id="优势："><a href="#优势：" class="headerlink" title="优势："></a>优势：</h4><ul>
+<li>移动设备</li>
+</ul>
+<p>能在 8bit 位处理器上很好的运行 C /JavaScript/Java 的 client 库分别只有 30/75/100KB</p>
+<p>在移动设备上耗电率低，大约只需要 HTTP 的一半</p>
+<p>通过使用基于 WebSocket 的 MQTT 客户端 JavaScript API，符合 Hybrid 开发潮流，只要设备的浏览器支持 WebSocket，就能很轻松实现多移动平台的跨越</p>
+<ul>
+<li>很好的适应各种复杂网络，特别是受限网络</li>
+</ul>
+<p>预期并适应频繁的网络中断，能应对低速、低质量的网络</p>
+<p>压缩优化过后的协议，可以有效降低网络流量，从而节约网络成本</p>
+<p>完成同样的数据通信，MQTT 只需要 HTTP 约 1/4 得数据流量</p>
+<ul>
+<li>发布 - 订阅的消息通信协议，允许一条消息只发布一次，便可被多个消费端（应用程序 / 设备）所接收</li>
+</ul>
+<p>实现系统间松耦合，简化开发，方便扩展，整合。</p>
+<ul>
+<li>提供灵活便捷的系统整合能力</li>
+</ul>
+<p>使用 MQ，MB 提供可靠系统内系统整合和通信</p>
+<p>Cast Iron 强大的系统间整合带来巨大的灵活性</p>
+<ul>
+<li>提供丰富的安全性</li>
+</ul>
+<p>使用 SSL 提供的认证和加密来保证传输安全性</p>
+<p>通过 JAAS 接口提供的身份认证</p>
+<p>OAM 用于资源层面的授权</p>
+<ul>
+<li>强大的性能提高系统的高可靠性</li>
+</ul>
+<p>高连接数下系统低计算资源使用</p>
+<p>高连接数下系统高信息处理速度</p>
+<ul>
+<li>提供多种消息服务质量，满足不同场景需求</li>
+</ul>
+<p>0 ：消息最多被传递一次，比如一般类广告，通知</p>
+<p>1 ：消息会被传递但可能会重复传递，比如账户余额通知</p>
+<p>2 ：消息保证传递且仅有一次传递，比如交易支付批复通知</p>
+<h4 id="MQTT-WebSocket-JavaScript-API-的功能描述如下："><a href="#MQTT-WebSocket-JavaScript-API-的功能描述如下：" class="headerlink" title="MQTT WebSocket JavaScript API 的功能描述如下："></a>MQTT WebSocket JavaScript API 的功能描述如下：</h4><ul>
+<li>Connect 连接</li>
+</ul>
+<p>MQTT 客户端负责向 MQTT 服务器发起连接操作，并开始计时，在超时期里接收到正确连接响应，则连接成功，负责连接超时。任何数据的发送或者收到，都将启动新的超时计时，在整个超时完成后没有数据的发送或者接收时，发送心跳以维持连接状态。</p>
+<ul>
+<li>DisConnect 断开连接</li>
+</ul>
+<p>MQTT 客户端或者服务器发起连接断开命令。在发出连接断开命令后，开始超时计时，在超时内成功收到断开响应，双方设置其相应连接状态为断开；超时后尚未成功接收响应，则开始重发连接命令，直到重发次数到达系统设置上限。否则，设置对应原因。</p>
+<ul>
+<li>Subscribe 订购</li>
+</ul>
+<p>在双方连接建立后，MQTT 客户端发送订购消息，来订购主题，并设置相应质量服务级别，在接收到订购确认后，自动接收在此主题上的任何消息。</p>
+<ul>
+<li>UnSubscribe 取消订购</li>
+</ul>
+<p>在双方连接建立后，MQTT 客户端发送取消订购消息，来取消订购主题，在接收到取消订购确认后，在原来主题上的任何消息将不再推送到此客户端。</p>
+<ul>
+<li>Publish 发布</li>
+</ul>
+<p>在双方连接建立后，MQTT 客户端将业务数据放入发布消息的消息体中，通过发布消息，发布在某主题上，此消息按照不同的消息服务质量级别，发布到不同的订购者客户端。</p>
+<ul>
+<li>Will 主题和消息</li>
+</ul>
+<h3 id="Web客户端类库"><a href="#Web客户端类库" class="headerlink" title="Web客户端类库"></a>Web客户端类库</h3><p><a href="https://github.com/mqttjs/MQTT.js" target="_blank" rel="noopener">mqtt.js</a><br><a href="https://eclipse.org/paho/clients/js/" target="_blank" rel="noopener">Eclipse Paho Client</a></p>
+<h3 id="连接至-MQTT-服务器"><a href="#连接至-MQTT-服务器" class="headerlink" title="连接至 MQTT 服务器"></a>连接至 MQTT 服务器</h3><p>几个公共的用于 WebSocket 测试连接服务器：</p>
+<ul>
+<li>test.mosquitto.org - 使用端口 8080 未加密，8081 用于 SSL 上的 WebSocket；</li>
+<li>iot.eclipse.org - 使用端口 80 未加密，443 用于 SSL 上的 WebSocket；</li>
+<li>broker.hivemq.com - 使用端口 8000 未加密，不支持 SSL 上的 WebSocket。</li>
+</ul>
+<p>EMQ 使用 8083 端口用于普通连接，8084 用于 SSL 上的 WebSocket 连接</p>
+<p><a href="https://blog.csdn.net/qq_41217010/article/details/89203457" target="_blank" rel="noopener">web客户端使用mqtt</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/04/vue中好用的插件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/04/vue中好用的插件/" itemprop="url">vue中好用的插件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-04T17:02:53+08:00">
+                2019-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="全屏fullscreen"><a href="#全屏fullscreen" class="headerlink" title="全屏fullscreen"></a>全屏fullscreen</h3><p><a href="https://www.npmjs.com/package/screenfull" target="_blank" rel="noopener">screenfull.js</a></p>
+<p>npm install screenfull</p>
+<h3 id="断点续传"><a href="#断点续传" class="headerlink" title="断点续传"></a>断点续传</h3><p><a href="https://www.npmjs.com/package/vue-simple-upload" target="_blank" rel="noopener">vue-simple-uploader</a></p>
+<p>其主要特点就是：</p>
+<ul>
+<li><p>支持文件、多文件、文件夹上传</p>
+</li>
+<li><p>支持拖拽文件、文件夹上传</p>
+</li>
+<li><p>统一对待文件和文件夹，方便操作管理</p>
+</li>
+<li><p>可暂停、继续上传</p>
+</li>
+<li><p>错误处理</p>
+</li>
+<li><p>支持“快传”，通过文件判断服务端是否已存在从而实现“快传”</p>
+</li>
+<li><p>上传队列管理，支持最大并发上传</p>
+</li>
+<li><p>分块上传</p>
+</li>
+<li><p>支持进度、预估剩余时间、出错自动重试、重传等操作</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/Element-UI经验小结/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/27/Element-UI经验小结/" itemprop="url">Element-UI经验小结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-27T11:03:26+08:00">
+                2019-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/element-ui/" itemprop="url" rel="index">
+                    <span itemprop="name">element-ui</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Pagination分页页码重置"><a href="#Pagination分页页码重置" class="headerlink" title="Pagination分页页码重置"></a>Pagination分页页码重置</h3><p>场景：先跳转到其他页码，这时查询的时候页码没有跳回1</p>
+<p>解决方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">current-page = 1;</span><br><span class="line">totalpage = 0;</span><br></pre></td></tr></table></figure>
+<h3 id="Table设置单元格样式"><a href="#Table设置单元格样式" class="headerlink" title="Table设置单元格样式"></a>Table设置单元格样式</h3><p>设置:cell-class-name=’handleCellStyle’，return 一个className</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/模块化的演变/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -911,828 +1807,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/自动化发布/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/18/自动化发布/" itemprop="url">自动化发布</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-18T18:18:19+08:00">
-                2019-01-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/前端监控和分析/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/18/前端监控和分析/" itemprop="url">前端监控和分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-18T18:18:00+08:00">
-                2019-01-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/继承/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/18/继承/" itemprop="url">继承</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-18T18:17:14+08:00">
-                2019-01-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/前端性能优化/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/18/前端性能优化/" itemprop="url">前端性能优化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-18T17:20:59+08:00">
-                2019-01-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/性能优化/" itemprop="url" rel="index">
-                    <span itemprop="name">性能优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="从URL到页面展示过程"><a href="#从URL到页面展示过程" class="headerlink" title="从URL到页面展示过程"></a>从URL到页面展示过程</h3><p>URL-&gt;DNS寻址-&gt;IP层级查找（从右到左）-&gt;Request start -&gt;服务器查找到资源-&gt;Response start-&gt;页面渲染</p>
-<h3 id="页面渲染过程"><a href="#页面渲染过程" class="headerlink" title="页面渲染过程"></a>页面渲染过程</h3><p>DOM树生成（所有节点）-&gt;资源下载-&gt;render树生成（可见节点）-&gt;逐级解析DOM树，展示页面</p>
-<p>过程中js要放在最后，因为js引擎涉及到对DOM和CSS的操作，会阻塞渲染。script有两个属性，分别是async和defer，两个虽然都是异步加载，但defer是在整个DOM渲染完才执行，而async 则是一个乱序执行的主，反正对它来说脚本的加载和执行是紧紧挨着的，所以不管你声明的顺序如何，只要它加载完了就会立刻执行。如果没有使用这两个属性，那么浏览器会立即加载并执行指定的脚本，读到即执行</p>
-<h3 id="架构级别优化"><a href="#架构级别优化" class="headerlink" title="架构级别优化"></a>架构级别优化</h3><p>在项目架构上进行，比如前端流行的自动化构建工具：webpack、gulp、fis等进行静态资源的合并、压缩、版本号控制，后端服务器的Gzip、http header设置缓存等</p>
-<h4 id="复用"><a href="#复用" class="headerlink" title="复用"></a>复用</h4><p>1、css复用</p>
-<p>2、js模块复用</p>
-<p>3、模版复用</p>
-<h4 id="加载方式"><a href="#加载方式" class="headerlink" title="加载方式"></a>加载方式</h4><p>1、同步加载</p>
-<p>2、分级加载</p>
-<p>3、按需加载</p>
-<h3 id="通用优化"><a href="#通用优化" class="headerlink" title="通用优化"></a>通用优化</h3><p>从四个维度去做：1、首屏时间   2、白屏时间   3、可操作时间   4、流通率（音视频）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、不考虑兼容性，能尽量使用css3实现的，都不用图片</span><br><span class="line">2、不考虑兼容性，对于图标，能使用图标字体的都尽量使用</span><br><span class="line">3、不考虑兼容性，考虑分辨率，能使用矢量图svg就尽量使用</span><br><span class="line">4、减少请求：合并、CDN、多域名</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/设计模式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/14/设计模式/" itemprop="url">设计模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-14T10:06:41+08:00">
-                2019-01-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="单体模式"><a href="#单体模式" class="headerlink" title="单体模式"></a>单体模式</h3><p>始终只创建一个对象实例。</p>
-<h4 id="为什么使用单体模式"><a href="#为什么使用单体模式" class="headerlink" title="为什么使用单体模式"></a>为什么使用单体模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、如果每次创建实例时，实例的功能均完全相同，那么将其设置为单体</span><br><span class="line">2、单体可保证命名空间对象和函数井然有序，防止全局命名空间污染</span><br></pre></td></tr></table></figure>
-<h4 id="实现方式一"><a href="#实现方式一" class="headerlink" title="实现方式一"></a>实现方式一</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var singleSlon = &#123;</span><br><span class="line">	prop: 1,</span><br><span class="line">	another_prop: 1,</span><br><span class="line">	method: function() &#123;&#125;,</span><br><span class="line">	another_method: function() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="实现方式二"><a href="#实现方式二" class="headerlink" title="实现方式二"></a>实现方式二</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var singleSlon = (function() &#123;</span><br><span class="line">	var prop = 1;</span><br><span class="line">	function private_method() &#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return &#123;</span><br><span class="line">		another_prop: prop,</span><br><span class="line">		method: function() &#123;</span><br><span class="line">			private_method();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
-<p>###单例模式</p>
-<p>只有一个单独的实例，并提供一个访问他的全局访问点。保证一个类只有一个实例，先判断实例是否存在，存在即返回，不存在即创建</p>
-<p>####实现方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var singleSlon = (function() &#123;</span><br><span class="line">	var unique;</span><br><span class="line"></span><br><span class="line">	function getInstance() &#123;</span><br><span class="line">		if (unique === undefined) &#123;</span><br><span class="line">			unique = new Construct();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return unique;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function Construct() &#123;&#125;</span><br><span class="line"></span><br><span class="line">	return &#123;</span><br><span class="line">		getInstance: getInstance</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
-<p>###模版模式</p>
-<p>####概念</p>
-<p>就是将一些公共方法封装到父类，子类可以继承父类，并且可以在子类中重写父类的方法</p>
-<p>####实现方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var Parent = function () &#123;&#125;;</span><br><span class="line"></span><br><span class="line">Parent.prototype.writenTest = function() &#123;</span><br><span class="line">	console.log(&apos;笔试题&apos;);</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.leader = function() &#123;</span><br><span class="line">	console.log(&apos;领导面&apos;);</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.init = function() &#123;</span><br><span class="line">	this.writenTest();</span><br><span class="line">	this.leader();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var Ali = function() &#123;&#125;</span><br><span class="line"></span><br><span class="line">Ali.prototype = new Parent();  //关键</span><br><span class="line"></span><br><span class="line">Ali.prototype.leader = function() &#123;</span><br><span class="line">	console.log(&apos;ali领导面&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var ali = new Ali();</span><br><span class="line">ali.init();</span><br></pre></td></tr></table></figure>
-<h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><p>####概念</p>
-<p>代理模式的中文含义就是帮别人做事，javascript的解释为：把对一个对象的访问, 交给另一个代理对象来操作.</p>
-<p>####实现方式(图片懒加载)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var myImage = (function() &#123;</span><br><span class="line">	var imgNode = document.createElement(&apos;img&apos;);</span><br><span class="line">	document.body.appendChild(imgNode);</span><br><span class="line">	reutrn function(src) &#123;</span><br><span class="line">		imgNode.src = src;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">var proxyImage = (function() &#123;</span><br><span class="line">	var img = new Image();</span><br><span class="line">	img.onload = function() &#123;</span><br><span class="line">		myImage(this.src)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return function(src) &#123;</span><br><span class="line">		myImage(&apos;占位图&apos;);</span><br><span class="line">		img.src = src</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">proxyImage(&apos;真实图&apos;)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/浅拷贝-深拷贝/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/10/浅拷贝-深拷贝/" itemprop="url">浅拷贝-深拷贝</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T19:02:33+08:00">
-                2019-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>###浅拷贝</p>
-<p>浅拷贝只复制指向某个对象的引用地址，而不复制对象本身，新旧对象还是共享同一块内存</p>
-<h4 id="for…in"><a href="#for…in" class="headerlink" title="for…in"></a>for…in</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;name: &apos;lisi&apos;, age: 18, sex:1, sub:[&apos;数学&apos;, &apos;语文&apos;]&#125;;</span><br><span class="line">var newobj = &#123;&#125;;</span><br><span class="line">for(var item in obj) &#123;</span><br><span class="line">	if (obj.hasOwnProperty(item)) &#123;  //只复制自身属性</span><br><span class="line">		newobj[item] = obj[item];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;name: &apos;lisi&apos;, age: 18, sex:1, sub:[&apos;数学&apos;, &apos;语文&apos;]&#125;;</span><br><span class="line">var newobj = Object.assign(&#123;&#125;, obj);</span><br></pre></td></tr></table></figure>
-<h4 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a>Object.create()</h4><p>Object.getOwnPropertyDescriptors()方法返回一个对象，所有原对象的属性名都是该对象的属性名，对应的属性值就是该属性的描述对象。主要是为了解决Object.assign()无法正确拷贝get和set属性问题。</p>
-<p>Object.getOwnPropertyDescriptors的实现如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function getOwnPropertyDescriptors(obj) &#123;</span><br><span class="line">	const result = &#123;&#125;;</span><br><span class="line">	for(let key of Reflect.ownKeys(obj)) &#123;</span><br><span class="line">		result[key] = Object.getOwnPropertyDescriptor(obj, key);</span><br><span class="line">	&#125;</span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>浅拷贝实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const shallowClone = (obj) =&gt; Object.creat(Object,getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj))</span><br></pre></td></tr></table></figure>
-<h4 id="扩展运算符-…"><a href="#扩展运算符-…" class="headerlink" title="扩展运算符(…)"></a>扩展运算符(…)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var newobj = &#123;...mySelf&#125;;</span><br></pre></td></tr></table></figure>
-<p>###深拷贝</p>
-<p>深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象</p>
-<h4 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var mySelf = &#123;name: &apos;猫哆哩&apos;,hobby: [&apos;敲代码&apos;, &apos;玩游戏&apos;, &apos;打台球&apos;]&#125;;</span><br><span class="line">function deepCopy(object) &#123;</span><br><span class="line">	var obj = object instanceOf Array ? [] : &#123;&#125;;</span><br><span class="line">	for(var item in object) &#123;</span><br><span class="line">		if (typeof object[item] == &apos;object&apos;) &#123;</span><br><span class="line">			obj[item] = deepCopy(object[item]);</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			obj[item] = object[item];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">deepCopy(mySelf);</span><br></pre></td></tr></table></figure>
-<h4 id="jQuery-extend"><a href="#jQuery-extend" class="headerlink" title="jQuery.extend()"></a>jQuery.extend()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(true, target, source);</span><br></pre></td></tr></table></figure>
-<h4 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify()"></a>JSON.stringify()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var newobj = JSON.parse(JSON.stringify(mySelf));</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1783,7 +1857,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1794,7 +1868,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1805,7 +1879,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
