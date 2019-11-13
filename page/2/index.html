@@ -229,6 +229,701 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/模块化的演变/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/13/模块化的演变/" itemprop="url">模块化的演变</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-13T16:58:53+08:00">
+                2019-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/模块化/" itemprop="url" rel="index">
+                    <span itemprop="name">模块化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="全局函数"><a href="#全局函数" class="headerlink" title="全局函数"></a>全局函数</h3><p>遗留问题：</p>
+<ul>
+<li>命名冲突</li>
+<li>模块关系不够明显</li>
+</ul>
+<h3 id="对象封装"><a href="#对象封装" class="headerlink" title="对象封装"></a>对象封装</h3><p>通过使用对象的方式（人为约定）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var calculator = &#123;</span><br><span class="line">	add: function(x,y) &#123;return x+y&#125;,</span><br><span class="line">	_count: 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>遗留问题：</p>
+<ul>
+<li>属性和方法私有化问题</li>
+<li>命名空间的形式会越来越长，代码不够优雅</li>
+</ul>
+<h3 id="划分私有空间"><a href="#划分私有空间" class="headerlink" title="划分私有空间"></a>划分私有空间</h3><p>通过匿名自执行函数，公开共有方法，隐藏私有空间内部的属性、方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var calculator = (function() &#123;</span><br><span class="line">	var _count = 10;</span><br><span class="line"></span><br><span class="line">	function add(x,y) &#123;return x+y&#125;</span><br><span class="line"></span><br><span class="line">	return &#123;</span><br><span class="line">		add: add</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">_count如果不return，是无法被外部直接访问的</span><br></pre></td></tr></table></figure>
+<p>遗留问题：</p>
+<ul>
+<li>文件过大无法维护</li>
+</ul>
+<h3 id="扩展和维护模块"><a href="#扩展和维护模块" class="headerlink" title="扩展和维护模块"></a>扩展和维护模块</h3><p>模块的扩展约定：开闭原则（通过外部的方式对添加开放，对修改封闭）</p>
+<h4 id="“鲁棒”做法"><a href="#“鲁棒”做法" class="headerlink" title="“鲁棒”做法"></a>“鲁棒”做法</h4><p>更高的容错性，永远不要相信用户的输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var calculator = (function(cal) &#123;</span><br><span class="line">	var _count = 10;</span><br><span class="line"></span><br><span class="line">	cal.add = function(x,y) &#123;return x+y&#125;</span><br><span class="line"></span><br><span class="line">	cal.mod = function(x,y) &#123;return x % y&#125;</span><br><span class="line"></span><br><span class="line">	return cal;</span><br><span class="line"></span><br><span class="line">&#125;)(window.calculator || &#123;&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="第三方依赖（依赖注入）"><a href="#第三方依赖（依赖注入）" class="headerlink" title="第三方依赖（依赖注入）"></a>第三方依赖（依赖注入）</h4><p>1、忘记引入第三方依赖，报错</p>
+<p>2、引入第三方依赖顺序错误，报错</p>
+<p>把依赖项通过参数的形式注入进来，然后在内部使用注入的属性</p>
+<p>好处：</p>
+<ul>
+<li>依赖关系明显，利于代码阅读</li>
+<li>提高了性能，减少了作用域的查找范围</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var calculator = (function(cal, $) &#123;</span><br><span class="line">	var _count = 10;</span><br><span class="line"></span><br><span class="line">	cal.add = function(x,y) &#123;return x+y&#125;</span><br><span class="line"></span><br><span class="line">	cal.mod = function(x,y) &#123;return x % y&#125;</span><br><span class="line"></span><br><span class="line">	return cal;</span><br><span class="line"></span><br><span class="line">&#125;)(window.calculator || &#123;&#125;, $)</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>最大问题，规范的问题，代码风格要统一</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/css选择器优先级/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/23/css选择器优先级/" itemprop="url">css选择器优先级</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T17:49:58+08:00">
+                2019-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>浏览器通过优先级来判断哪一些属性值与一个元素最为相关，从而在该元素上应用这些属性值。优先级是基于不同种类选择器组成的匹配规则</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="优先级是如何计算的"><a href="#优先级是如何计算的" class="headerlink" title="优先级是如何计算的"></a>优先级是如何计算的</h3><p>优先级就是分配给指定的CSS声明的一个权重，它由 匹配的选择器中的 每一种选择器类型的 数值 决定</p>
+<p>当同一个元素有多个声明的时候，优先级才会有意义。因为每一个直接作用于元素的CSS规则总是会接管/覆盖（take over）该元素从祖先元素继承而来的规则。</p>
+<h3 id="选择器类型"><a href="#选择器类型" class="headerlink" title="选择器类型"></a>选择器类型</h3><p>下面列表中，选择器类型的优先级是递增的</p>
+<p>1、类型（标签）选择器和伪元素</p>
+<p>2、类选择器、属性选择器、伪类</p>
+<p>3、ID选择器</p>
+<p>4、内联样式（style）总会覆盖外部样式表的任何样式，可看作具有最高的优先级</p>
+<p>5、!important规则，将覆盖任何其他声明</p>
+<h3 id="直接给目标元素添加样式和目标元素继承样式"><a href="#直接给目标元素添加样式和目标元素继承样式" class="headerlink" title="直接给目标元素添加样式和目标元素继承样式"></a>直接给目标元素添加样式和目标元素继承样式</h3><p>为目标元素直接添加样式，永远比继承样式的优先级高，无视优先级的遗传规则</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/前端开发规范/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/21/前端开发规范/" itemprop="url">前端开发规范</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-21T17:49:59+08:00">
+                2019-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/web前端/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>参考文章<a href="https://github.com/senntyou/blogs" target="_blank" rel="noopener">senntyou/blogs</a></p>
+<p>###开发规范分类</p>
+<h4 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h4><p>可以参考<a href="http://imweb.github.io/CodeGuide/" target="_blank" rel="noopener">Code Guide</a></p>
+<p>1、html规范</p>
+<p>2、css规范</p>
+<p>3、js规范</p>
+<h4 id="项目结构规范"><a href="#项目结构规范" class="headerlink" title="项目结构规范"></a>项目结构规范</h4><p>项目结构规范包括文件、目录命名规范，模块化分组规范，组件化规范等等，这些规范有些是构建工具要求的，有些是团队自己定的</p>
+<h4 id="框架、工具规范"><a href="#框架、工具规范" class="headerlink" title="框架、工具规范"></a>框架、工具规范</h4><p>约束项目结构规范需要团队讨论来定，但基本上需要满足以下几个需求：</p>
+<ul>
+<li>便利性：能够快速的定位文件位置，对编辑器友好</li>
+<li>解耦性：不同页面之间，不同组件之间是相互解耦的，不会更改一个组件或页面而影响到其他组件或页面</li>
+<li>扩展性：能够很方便的扩展组件和页面，而不会带来副作用</li>
+<li>阅读性：具有很好的阅读性，对组件、页面以及内部结构能够一目了然</li>
+</ul>
+<h4 id="其他约定"><a href="#其他约定" class="headerlink" title="其他约定"></a>其他约定</h4><p>如：</p>
+<ul>
+<li>每个 js 文件不应该超过 400 行，超过就应该分块</li>
+<li>每个 css 文件不应该超过 200 行，超过就应该分块</li>
+</ul>
+<h4 id="前端开发文档"><a href="#前端开发文档" class="headerlink" title="前端开发文档"></a>前端开发文档</h4><p>1、利用IDE插件jsdoc生成注释</p>
+<p>2、利用gulp-jsdoc3，配置doc任务，生成jsdoc接口文档</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(&apos;doc&apos;, function(cb) &#123;</span><br><span class="line">    gulp.src([&apos;README.md&apos;, &apos;./public/static/source/js/*.js&apos;],&#123;read: false&#125;)</span><br><span class="line">    .pipe($.jsdoc3(cb));</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">在项目根目录下会生成docs/gen文件夹，打开index.html，就可以查看接口文档</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/数据模拟/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="燕子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FE Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/18/数据模拟/" itemprop="url">数据模拟</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-18T18:18:32+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据模拟/" itemprop="url" rel="index">
+                    <span itemprop="name">数据模拟</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据模拟/web前端/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="为什么需要“本地化接口模拟、前后端并行开发”"><a href="#为什么需要“本地化接口模拟、前后端并行开发”" class="headerlink" title="为什么需要“本地化接口模拟、前后端并行开发”"></a>为什么需要“本地化接口模拟、前后端并行开发”</h3><p>在前后端耦合式开发中，前后端的数据交流及页面渲染使用后端模版，所以前端对页面的开发和调试总是依赖后端程序，而不能本地运行，这就导致前端开发很耗时。而在前后端分离之后，前端能够在本地运行服务程序、开发、调试，更高效快捷的开发web前端程序。所以有了这个需求</p>
+<h3 id="本地化模拟方式"><a href="#本地化模拟方式" class="headerlink" title="本地化模拟方式"></a>本地化模拟方式</h3><h4 id="方式一：静态数据模拟"><a href="#方式一：静态数据模拟" class="headerlink" title="方式一：静态数据模拟"></a>方式一：静态数据模拟</h4><p>1、静态json文件</p>
+<p>缺点：在测试、上线时需要更改接口</p>
+<h4 id="方式二：同等模拟服务器环境"><a href="#方式二：同等模拟服务器环境" class="headerlink" title="方式二：同等模拟服务器环境"></a>方式二：同等模拟服务器环境</h4><p>使用node+express启动本地服务，提供接口和返回数据</p>
+<p>缺点：返回数据是固定的</p>
+<h4 id="方式三：线上工具"><a href="#方式三：线上工具" class="headerlink" title="方式三：线上工具"></a>方式三：线上工具</h4><p>比较热门的线上工具有：</p>
+<ul>
+<li><a href="https://www.eolinker.com" target="_blank" rel="noopener">eolinker</a></li>
+<li><a href="https://apizza.net" target="_blank" rel="noopener">apizza</a>：界面与 <code>postman</code> 比较像</li>
+<li><a href="https://www.easyapi.com/" target="_blank" rel="noopener">easyapi</a></li>
+<li><a href="https://apiview.com/" target="_blank" rel="noopener">apiview</a></li>
+</ul>
+<h4 id="方式四：自建工具"><a href="#方式四：自建工具" class="headerlink" title="方式四：自建工具"></a>方式四：自建工具</h4><p>企业一般都采用自建工具，自己维护一套 API 接口管理工具，比较热门的有：</p>
+<ul>
+<li><a href="https://github.com/YMFE/yapi" target="_blank" rel="noopener">yapi</a>：去哪儿出品，线上演示地址 <a href="http://yapi.demo.qunar.com" target="_blank" rel="noopener">http://yapi.demo.qunar.com</a></li>
+<li><a href="https://github.com/thx/RAP" target="_blank" rel="noopener">RAP</a> / <a href="https://github.com/thx/rap2-delos" target="_blank" rel="noopener">rap2-delos</a> + <a href="https://github.com/thx/rap2-dolores" target="_blank" rel="noopener">rap2-dolores</a>：阿里出品，线上演示地址 <a href="http://rap2.taobao.org/" target="_blank" rel="noopener">http://rap2.taobao.org/</a></li>
+<li><a href="https://github.com/easy-mock/easy-mock" target="_blank" rel="noopener">easy-mock</a>：线上演示地址 <a href="https://easy-mock.com/" target="_blank" rel="noopener">https://easy-mock.com/</a></li>
+<li><a href="https://swagger.io/" target="_blank" rel="noopener">swagger</a>：国外比较热门的接口管理工具</li>
+</ul>
+<h5 id="4-1-yapi"><a href="#4-1-yapi" class="headerlink" title="4.1 yapi"></a>4.1 yapi</h5><blockquote>
+<p>环境需求：Node.js (&gt;= v7.6) &amp; MongoDB (&gt;= v2.6) &amp; Git</p>
+</blockquote>
+<p><code>yapi</code> UI 很漂亮，操作很流畅，安装比较简单，使用也比较简单，不与其他第三方工具或语言绑定。</p>
+<p>如果喜欢简单、UI 友好的，推荐使用这个。</p>
+<p>安装：<a href="https://github.com/YMFE/yapi#%E5%AE%89%E8%A3%85" target="_blank" rel="noopener">yapi#安装</a></p>
+<h5 id="4-2-RAP-rap2-delos-rap2-dolores"><a href="#4-2-RAP-rap2-delos-rap2-dolores" class="headerlink" title="4.2 RAP / rap2-delos + rap2-dolores"></a>4.2 RAP / rap2-delos + rap2-dolores</h5><blockquote>
+<p>环境需求：Node.js (&gt;= v8.9) &amp; MySQL (&gt;= v5.7) &amp; Redis（&gt;= v4.0）</p>
+</blockquote>
+<p><code>rap</code> 功能非常全，UI 不是很漂亮，安装比较复杂，使用也比较复杂，数据生成使用 <a href="https://github.com/nuysoft/Mock" target="_blank" rel="noopener">mock.js</a>。</p>
+<p>如果对功能完善、系统稳定、用 <code>mock.js</code> 生成数据有偏好的，推荐使用这个。</p>
+<p>RAP 目前有两个版本，第一个版本的 <a href="https://github.com/thx/RAP" target="_blank" rel="noopener">RAP</a> 已经被官方废弃了，建议用第二个版本。</p>
+<p>RAP2 分成了两个包：</p>
+<ul>
+<li><a href="https://github.com/thx/rap2-delos" target="_blank" rel="noopener">rap2-delos</a>：后端数据 API 服务器</li>
+<li><a href="https://github.com/thx/rap2-dolores" target="_blank" rel="noopener">rap2-dolores</a>：前端静态资源</li>
+</ul>
+<p>RAP2 的安装步骤要麻烦一些，<code>rap2-delos</code> 可以参考官方文档 <a href="https://github.com/thx/rap2-delos#%E9%83%A8%E7%BD%B2" target="_blank" rel="noopener">rap2-delos#部署</a>、<a href="https://github.com/thx/rap2-delos/issues/119" target="_blank" rel="noopener">非官方rap2-delos部署文档</a>，<code>rap2-dolores</code> 可以参考官方文档 <a href="https://github.com/thx/rap2-dolores#deployment-%E9%83%A8%E7%BD%B2" target="_blank" rel="noopener">rap2-dolores#deployment-部署</a>。</p>
+<h5 id="4-3-easy-mock"><a href="#4-3-easy-mock" class="headerlink" title="4.3 easy-mock"></a>4.3 easy-mock</h5><blockquote>
+<p>环境需求：Node.js (&gt;= v8.9) &amp; MongoDB (&gt;= v3.4) &amp; Redis（&gt;= v4.0）</p>
+</blockquote>
+<p><code>easy-mock</code> UI 很漂亮，操作很流畅，安装比较简单，使用也比较简单，数据生成使用 <a href="https://github.com/nuysoft/Mock" target="_blank" rel="noopener">mock.js</a>，并且支持导入 Swagger Docs API。</p>
+<p>如果喜欢简单、UI 友好的，并且喜欢用 <code>mock.js</code> 生成数据或者导入 Swagger Docs API 的，推荐使用这个。</p>
+<p>安装：<a href="https://github.com/easy-mock/easy-mock#quick-start" target="_blank" rel="noopener">easy-mock#quick-start</a></p>
+<h5 id="4-4-swagger"><a href="#4-4-swagger" class="headerlink" title="4.4 swagger"></a>4.4 swagger</h5><p>Swagger 其实并不是一个工具，而是一系列工具，或者说叫一个生态：</p>
+<ul>
+<li><a href="https://github.com/OAI/OpenAPI-Specification" target="_blank" rel="noopener">OpenAPI-Specification</a>：基于 <code>yaml</code> 语法格式定义的一套开放 API 文档规范</li>
+<li><a href="https://github.com/swagger-api/swagger-ui" target="_blank" rel="noopener">swagger-ui</a>：UI 展示库</li>
+<li><a href="https://github.com/swagger-api/swagger-codegen" target="_blank" rel="noopener">swagger-codegen</a>：根据 Swagger 定义的 RESTful API 自动生成 Swagger 文档（for java）</li>
+<li><a href="https://github.com/swagger-api/swagger-core" target="_blank" rel="noopener">swagger-core</a>：java 核心库</li>
+<li><a href="https://github.com/swagger-api/swagger-editor" target="_blank" rel="noopener">swagger-editor</a>：可视化编辑器</li>
+<li><a href="https://github.com/Rebilly/ReDoc" target="_blank" rel="noopener">ReDoc</a>：生成格式优美的 UI 界面（第三方）</li>
+<li><a href="https://github.com/swagger-api/swagger-node" target="_blank" rel="noopener">swagger-node</a>：for node.js</li>
+<li><a href="https://github.com/go-swagger/go-swagger" target="_blank" rel="noopener">go-swagger</a>：for Go</li>
+</ul>
+<p>如你所见，这个生态功能非常全，但使用非常复杂，入门坎比较高。</p>
+<p>这套工具对后端非常有用，特别是 java 开发，能直接根据注释自动生成相应的 API 规范文档，然后直接根据这个 API 规范文档自动生成 UI 可视化界面与数据 Mock 服务器，而不是我们手动创建。</p>
+<p>安装：<a href="https://swagger.io/" target="_blank" rel="noopener">swagger</a></p>
+<h4 id="方式五：其他工具"><a href="#方式五：其他工具" class="headerlink" title="方式五：其他工具"></a>方式五：其他工具</h4><p>上面讲的，不管是线上工具还是自建工具，都是接口集成工具，主要是为了提供数据 Mock 功能。</p>
+<p>如果仅仅是为了以静态文本的形式做展示用，可以试试下面的一些工具：</p>
+<h5 id="5-1-Git-仓库-Markdown"><a href="#5-1-Git-仓库-Markdown" class="headerlink" title="5.1 Git 仓库 + Markdown"></a>5.1 Git 仓库 + Markdown</h5><p>把接口文档单独建一个项目，使用 Markdown 的格式来书写。</p>
+<p><a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">了解 Markdown 语法</a>。</p>
+<h5 id="5-2-leanote"><a href="#5-2-leanote" class="headerlink" title="5.2 leanote"></a>5.2 leanote</h5><p>类似网易云笔记、印象笔记的笔记管理工具。</p>
+<p><a href="https://github.com/leanote/leanote" target="_blank" rel="noopener">了解 leanote</a>。</p>
+<h5 id="5-3-gollum"><a href="#5-3-gollum" class="headerlink" title="5.3 gollum"></a>5.3 gollum</h5><p>基于 Git 的 wiki 系统。</p>
+<p><a href="https://github.com/gollum/gollum" target="_blank" rel="noopener">了解 gollum</a>。</p>
+<h5 id="5-4-wiki-js"><a href="#5-4-wiki-js" class="headerlink" title="5.4 wiki.js"></a>5.4 wiki.js</h5><p>基于 Node.js 的 wiki 系统。</p>
+<p><a href="https://github.com/Requarks/wiki" target="_blank" rel="noopener">了解 wiki.js</a>。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/自动化发布/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1071,628 +1766,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/vue-seo/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/10/vue-seo/" itemprop="url">vue-seo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T17:46:33+08:00">
-                2019-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>vue是创建单页面应用的MVVM框架，虽然带来了很好的交互体验，但在SEO这一块却没有很好的解决。现在总结一下常用的方法：</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="SSR-后端渲染"><a href="#SSR-后端渲染" class="headerlink" title="SSR(后端渲染)"></a>SSR(后端渲染)</h3><h3 id="插件预渲染"><a href="#插件预渲染" class="headerlink" title="插件预渲染"></a>插件预渲染</h3><p>vue-meta-info </p>
-<p>prerender-spa-plugin</p>
-<h3 id="nuxt"><a href="#nuxt" class="headerlink" title="nuxt"></a>nuxt</h3><h3 id="phantomjs"><a href="#phantomjs" class="headerlink" title="phantomjs"></a>phantomjs</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/map-foreach区别/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/08/map-foreach区别/" itemprop="url">map-foreach区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-08T21:32:24+08:00">
-                2019-01-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>forEach()和map()两个方法都是ECMA5中Array引进的新方法，主要作用是对数组的每个元素执行一次提供的函数，但是它们之间还是有区别的</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>###forEach语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.forEach(function(currentValue, index, array) &#123;&#125;, this)</span><br></pre></td></tr></table></figure>
-<p>参数：当前数组中元素，索引，当前数组<br>    this：可选，执行回调函数的时候，this的指向</p>
-<p>返回值为undefined</p>
-<p>forEach没有办法终止或跳出循环，除非抛出异常；如果想执行一个数组是否满足什么条件，返回布尔值，可以用一般的for循环，或者用Array.every()、Array.some()</p>
-<h3 id="map语法"><a href="#map语法" class="headerlink" title="map语法"></a>map语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var new_array = array.map(function(currentValue, index, array)&#123;&#125;,this);</span><br></pre></td></tr></table></figure>
-<p>参数：当前数组中元素，索引，当前数组<br>    this：可选，执行回调函数的时候，this的指向</p>
-<p>返回值为一个新数组，原数组不会改变</p>
-<p>不会对空数组做处理</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/ES6-Module/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/08/ES6-Module/" itemprop="url">ES6 Module</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-08T15:38:11+08:00">
-                2019-01-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在ES6之前，社区制定了一些模块加载方案，最主要的有CommonJS和AMD两种。前者用于服务器，后者用于浏览器。ES6在语言标准的层面上，实现了模块功能，完全可以取代CommonJS和AMD规范，成为浏览器和服务器通用的模块解决方案。</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS模块就是对象，输入时必须查找对象属性。</p>
-<p>ES6 模块不是对象，而是通过export命令显式指定输出的代码，再通过import命令输入。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// ES6模块</span><br><span class="line">import &#123; stat, exists, readFile &#125; from &apos;fs&apos;;</span><br></pre></td></tr></table></figure>
-<p>上面代码的实质是从fs模块加载3个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 ES6 可以在编译时就完成模块加载，效率要比 CommonJS 模块的加载方式高。</p>
-<p>模块功能主要由两个命令构成：export和import。</p>
-<h3 id="export"><a href="#export" class="headerlink" title="export"></a>export</h3><p>export命令用于规定模块的对外接口。</p>
-<p>一个模块就是一个独立的文件。该文件内部的所有变量、方法，外部无法获取。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//profile.js</span><br><span class="line">export let a = 12;</span><br><span class="line">export function counter() &#123;&#125;</span><br><span class="line"></span><br><span class="line">let b = 12;</span><br><span class="line">function counter2() &#123;&#125;</span><br><span class="line"></span><br><span class="line">export &#123;b, counter2&#125;   //更多的采用这种模式</span><br></pre></td></tr></table></figure>
-<p>另外，export语句输出的接口，与其对应的值是动态绑定关系，即通过该接口，可以取到模块内部实时的值</p>
-<p>最后，export命令可以出现在模块的任何位置，只要处于模块顶层就可以。如果处于块级作用域内，就会报错，下一节的import命令也是如此。这是因为处于条件代码块之中，就没法做静态优化了，违背了 ES6 模块的设计初衷。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  export default &apos;bar&apos; // SyntaxError</span><br><span class="line">&#125;</span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
-<h3 id="import"><a href="#import" class="headerlink" title="import"></a>import</h3><p>import命令用于输入其他模块提供的功能；import命令输入的变量都是只读的，但如果是对象，可以对对象的属性进行修改；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//main.js</span><br><span class="line">import &#123;a, counter2&#125; from &apos;./profile.js&apos;</span><br></pre></td></tr></table></figure>
-<p>import后面的from指定模块文件的位置，可以是相对路径，也可以是绝对路径，.js后缀可以省略</p>
-<p>注意，import命令具有提升效果，会提升到整个模块的头部，首先执行</p>
-<p>import语句会执行所加载的模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;loadsh&apos;</span><br></pre></td></tr></table></figure>
-<p>多次重复执行同一句import语句，那么只会执行一次，而不会执行多次</p>
-<h3 id="模块的整体加载"><a href="#模块的整体加载" class="headerlink" title="模块的整体加载"></a>模块的整体加载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import * as circle from &apos;./profile.js&apos;</span><br><span class="line"></span><br><span class="line">console.log(circle.a); //值是不可改变的</span><br></pre></td></tr></table></figure>
-<h3 id="export-default"><a href="#export-default" class="headerlink" title="export default"></a>export default</h3><p>export default命令用于指定模块的默认输出。显然，一个模块只能有一个默认输出，因此export default命令只能使用一次</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//profile.js 第一组</span><br><span class="line">export default function foo() &#123;&#125;</span><br><span class="line"></span><br><span class="line">import foo from &apos;./profile&apos;</span><br><span class="line"></span><br><span class="line">//profile.js 第二组</span><br><span class="line">export function foo() &#123;&#125;</span><br><span class="line"></span><br><span class="line">import &#123;foo&#125; from &apos;./profile&apos;</span><br></pre></td></tr></table></figure>
-<p>注意：第一组是使用export default时，对应的import语句不需要使用大括号；第二组是不使用export default时，对应的import语句需要使用大括号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import _ from &apos;loadsh&apos;</span><br></pre></td></tr></table></figure>
-<h3 id="import-函数"><a href="#import-函数" class="headerlink" title="import()函数"></a>import()函数</h3><p>由于import命令是编译时加载，无法取代require()这种运行时加载，所以引入了import()函数，需要传的参数和import命令一样</p>
-<p>import()函数返回的是一个Promise对象，异步加载</p>
-<p>另外，import()函数与所加载的模块没有静态连接关系</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/07/async-await简单使用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="燕子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FE Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/07/async-await简单使用/" itemprop="url">async await简单使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-07T14:48:37+08:00">
-                2019-01-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>async-await用来处理异步请求，解决“回调地狱”问题，ES6也对此作出了标准，就来看看它的基本使用。</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="async语法"><a href="#async语法" class="headerlink" title="async语法"></a>async语法</h3><p>async做为一个关键词，放在函数前面，就表示函数是一个异步函数。调用方式和正常函数一样</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">async function timeout() &#123;</span><br><span class="line">	return &quot;hello world&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(timeout());</span><br><span class="line">console.log(&apos;我先执行了&apos;);</span><br></pre></td></tr></table></figure>
-<p>输出结果为：我先执行了  Promise:{<resolved>:’hellow world’}</resolved></p>
-<p>可以看到async返回的是一个Promise对象，可以通过then方法，获取到返回值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">async function timeout() &#123;</span><br><span class="line">	return &apos;hello world&apos;;</span><br><span class="line">&#125;</span><br><span class="line">timeout.then(res =&gt; &#123;</span><br><span class="line">	console.log(res);</span><br><span class="line">&#125;)</span><br><span class="line">console.log(&apos;我先执行了&apos;);</span><br></pre></td></tr></table></figure>
-<p>输出结果为：我先执行了   hello world</p>
-<h3 id="async内部实现原理"><a href="#async内部实现原理" class="headerlink" title="async内部实现原理"></a>async内部实现原理</h3><p>如果async函数返回一个值，当调用该函数时，内部会调用Promise.resolve()方法，把结果转换为一个Promise对象返回；如果内部抛出错误，那么调用Promise.reject()方法，返回一个Promise对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">async function timeout(flag) &#123;</span><br><span class="line">	if (flag) &#123;</span><br><span class="line">		return &apos;hello world&apos;;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		throw &apos;fail&apos;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">timeout(true).then(res =&gt; &#123;</span><br><span class="line">	console.log(res);  // hello world   调用Promise.resolve()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">timeout(false).catch(err =&gt; &#123;</span><br><span class="line">	console.log(err);  // fail  调用Promise.reject()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="await简单使用"><a href="#await简单使用" class="headerlink" title="await简单使用"></a>await简单使用</h3><p>await必须放到async函数中，后面可以跟任何表达式，但常用的是一个返回promise对象的表达式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function double2s(num) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		setTimeout(()=&gt;&#123;</span><br><span class="line">			resolve(num * 2);</span><br><span class="line">		&#125;, 2000)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async function timeout(num) &#123;</span><br><span class="line">	var result = await double2s(num); </span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">timeout(3).then(res =&gt; &#123;</span><br><span class="line">	console.log(res); //6</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>会先输出Promise对象的状态为Pending，2s后输出6</p>
-<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>在一个接口级联的情况下这种处理方式更简单。比如，当用户输入电话号码后，先查找这个电话号码所在的省和市，然后再根据省和市，找到可能充值的面值，进行展示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//根据电话号码查省市</span><br><span class="line">function getProvice(tel) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		//接口调用</span><br><span class="line">		resolve(data);// data: &#123;&quot;provice&quot;: &apos;bj&apos;, &quot;city&quot;: &apos;bj&apos;&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//根据省市查面额</span><br><span class="line">function getFaceList(provice, city) &#123;</span><br><span class="line">	return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		//接口调用</span><br><span class="line">		resolve(data);</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async getFaceResult () &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		let prov = await getProvice(tel);</span><br><span class="line">		let list = await getFaceList(prov.provice, prov.city);</span><br><span class="line">		...</span><br><span class="line">	&#125; catch(err) &#123;</span><br><span class="line">		console.log(err); //异常统一处理</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1738,7 +1816,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1760,7 +1838,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
